@@ -1,0 +1,36 @@
+body{
+    font-family: sans-serif;
+    text-align: center;
+  }
+#site{
+    font-size: 1rem;
+}
+.product{
+    display: inline-block;
+  }
+.product .img-container{
+    overflow: hidden;
+    position: relative;
+  }
+.product .img-container img{
+    width: 100%;
+    display: block;
+  }
+.product .img-container .price{
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    font-size: 20px;
+    background: white;
+    padding: 15px;
+  }
+.product .text{
+    border: 0rem;
+  }
+.product a{
+    display: inline-block;
+    margin-top: 2px;
+    text-decoration: none;
+    color: white;
+    padding: 15px;
+  }

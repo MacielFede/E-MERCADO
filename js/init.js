@@ -33,9 +33,9 @@ let getJSONData = function(url){
           return result;
     })
     .catch(function(error) {
-        result.status = 'error';
-        result.data = error;
-        hideSpinner();
-        return result;
+      result.status = "error";
+      result.data = error;
+      //hideSpinner();
+      return result;
     });
 }
