@@ -1,12 +1,12 @@
 body{
-    font-family: sans-serif;
-    text-align: center;
+    font-family: 'Raleway', serif;
+    text-align: center; 
   }
-#site{
-    font-size: 1rem;
-}
 .product{
-    display: inline-block;
+    margin-bottom: 2rem;
+    width: 50%;
+    float: left;
+    border-radius: 1rem;
   }
 .product .img-container{
     overflow: hidden;
@@ -18,14 +18,16 @@ body{
   }
 .product .img-container .price{
     position: absolute;
-    top: 2rem;
-    left: 2rem;
+    top: 1rem;
+    left: 0.5rem;
     font-size: 20px;
     background: white;
     padding: 15px;
+    color: black;
   }
 .product .text{
     border: 0rem;
+    color: black;
   }
 .product a{
     display: inline-block;
@@ -33,4 +35,11 @@ body{
     text-decoration: none;
     color: white;
     padding: 15px;
+  }
+  footer{
+    margin-top: 85%;
+    text-align: left;
+  }
+  .product:hover{
+    background-color: #eaeded;
   }
