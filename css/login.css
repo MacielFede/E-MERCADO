@@ -64,3 +64,11 @@ label{
      50%{ transform: translateX(-4px); }
      75%{ transform: translateX(4px); }
 }
+.g-signin2{
+     text-align: center;
+     position: sticky;
+     width: 16%;
+     margin: 0 auto;
+     padding: 1rem 3rem;
+     box-sizing: inherit;
+}

@@ -45,3 +45,7 @@ function passwordAnimOff(){
      document.getElementById("err2").style.display="none";
      document.getElementById("passw").style.borderColor="#4f4f4f";
 }
+//Si se logea con google se redirecciona al inicio
+function onSignIn(googleUser){
+     window.location.href = "localhost/inicio.html";
+ }
