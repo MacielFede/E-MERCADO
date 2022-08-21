@@ -1,6 +1,7 @@
 body{
     font-family: 'Raleway', serif;
     text-align: center; 
+    height: 100%;
   }
 .product{
     margin-bottom: 2rem;
@@ -37,8 +38,12 @@ body{
     padding: 15px;
   }
   footer{
-    margin-top: 85%;
+    position: relative;
+    height: 100px;
+    margin-top: -100px;
+    clear: both;
     text-align: left;
+    padding-bottom: 6rem;
   }
   .product:hover{
     background-color: #eaeded;

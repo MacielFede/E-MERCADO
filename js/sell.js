@@ -1,3 +1,8 @@
+function addUserName(){
+//Agrega el nombre de usuario al header
+    console.log("setie el username");
+    document.getElementById("u_n").innerHTML = localStorage.getItem("UserName");
+}
 let productCost = 0;
 let productCount = 0;
 let comissionPercentage = 0.13;
@@ -28,6 +33,8 @@ function updateTotalCosts(){
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
+    addUserName();
+
     document.getElementById("productCountInput").addEventListener("change", function(){
         productCount = this.value;
         updateTotalCosts();

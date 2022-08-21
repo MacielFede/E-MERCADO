@@ -1,3 +1,9 @@
+function addUserName(){
+//Agrega el nombre de usuario al header
+    console.log("setie el username");
+    document.getElementById("u_n").innerHTML = localStorage.getItem("UserName");
+}
+
 const ORDER_ASC_BY_NAME = "AZ";
 const ORDER_DESC_BY_NAME = "ZA";
 const ORDER_BY_PROD_COUNT = "Cant.";
@@ -88,6 +94,8 @@ function sortAndShowCategories(sortCriteria, categoriesArray){
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
+    addUserName();
+
     getJSONData(CATEGORIES_URL).then(function(resultObj){
         if (resultObj.status === "ok"){
             currentCategoriesArray = resultObj.data

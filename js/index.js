@@ -5,6 +5,7 @@ document.getElementById("enter").addEventListener("click", function (a) {
 
      if (email != "" &&  password != "" ){
      //Usamos esto para ir al inicio permitiendo volver a la pagina de login y probarla a fondo
+          localStorage.setItem("UserName", email);
           window.location.href = "inicio.html";
      }else{
           if(email == ""){

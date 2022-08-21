@@ -59,7 +59,8 @@
   <script>
     //Hace que el usuario sea redirigido una vez inicie sesion con google
     function onSignIn(googleusercontent){
-     window.location.href="inicio.html"
+      localStorage.setItem("UserName", googleusercontent.getBasicProfile().getName());
+      window.location.href="inicio.html"
     }
   </script>
 </body>

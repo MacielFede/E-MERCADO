@@ -2,6 +2,7 @@
 const URL = PRODUCTS_URL + localStorage.getItem('catID') + ".json";
 
 document.addEventListener("DOMContentLoaded", function (e) {
+  document.getElementById("u_n").innerHTML = localStorage.getItem("UserName");
 
   getJSONData(URL).then(function (resObj) {
     if (resObj.status === "ok") {
