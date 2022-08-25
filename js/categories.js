@@ -1,9 +1,3 @@
-function addUserName(){
-//Agrega el nombre de usuario al header
-    console.log("setie el username");
-    document.getElementById("u_n").innerHTML = localStorage.getItem("UserName");
-}
-
 const ORDER_ASC_BY_NAME = "AZ";
 const ORDER_DESC_BY_NAME = "ZA";
 const ORDER_BY_PROD_COUNT = "Cant.";
@@ -14,8 +8,7 @@ let maxCount = undefined;
 
 function sortCategories(criteria, array){
     let result = [];
-    if (criteria === ORDER_ASC_BY_NAME)
-    {
+    if (criteria === ORDER_ASC_BY_NAME){
         result = array.sort(function(a, b) {
             if ( a.name < b.name ){ return -1; }
             if ( a.name > b.name ){ return 1; }
@@ -94,7 +87,7 @@ function sortAndShowCategories(sortCriteria, categoriesArray){
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
-    addUserName();
+    document.getElementById("u_n").innerHTML = localStorage.getItem("UserName");
 
     getJSONData(CATEGORIES_URL).then(function(resultObj){
         if (resultObj.status === "ok"){
