@@ -1,5 +1,5 @@
 document.getElementById("enter").addEventListener("click", function (a) {
-     //Verificamos los valores dentro del evento para saber como estan en ese momento
+     //Verificamos los valores dentro del evento para saber como están en ese momento
      let email = document.getElementById("email").value;
      let password = document.getElementById("passw").value;
 
@@ -10,18 +10,18 @@ document.getElementById("enter").addEventListener("click", function (a) {
      }else{
           if(email == ""){
                emailAnimation();
-          }else if(email != ""){
+          }else{
                emailAnimOff();
           }
 
           if(password == ""){
                passwordAnimation();
-          }else if(password != ""){
+          }else{
                passwordAnimOff();
           }
      }
 });
-//Manejamos las animaciones fuera del click para no sobrecargar la funcion
+//Manejamos las animaciones fuera del click para no sobrecargar la función
 function emailAnimation(){
      //Agregamos las animaciones y colores del email
      document.getElementById("err1").style.display="block";
@@ -38,6 +38,7 @@ function passwordAnimation(){
      document.getElementById("passw").addEventListener("animationend", e => 
           document.getElementById("passw").classList.toggle("shake"));
 }
+//Estas 2 funciones son para quitar la animación si el campo cumple con las condiciones
 function emailAnimOff(){
      document.getElementById("err1").style.display="none";
      document.getElementById("email").style.borderColor="#4f4f4f";

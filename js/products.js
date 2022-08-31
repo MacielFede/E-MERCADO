@@ -6,7 +6,7 @@ const ORDER_DESC_BY_PRICE = "2-1";
 const ORDER_BY_PROD_RELEVANCE = "Cant.";
 let minPrice = undefined;
 let maxPrice = undefined;
-let search = undefined;
+let search = "";
 
 function sortProducts(criteria){
   //Dado un criterio va a ordenar los productos por orden asc, desc o relevancia de ventas
@@ -33,10 +33,10 @@ function showProducts(){
   //limpiamos el html para que no se repitan productos
   document.getElementById("product_container").innerHTML = htmlProducts;
   for (let object of prod.products) {
-    if (((minPrice == undefined) || (minPrice != undefined && parseInt(object.cost) >= minPrice)) &&
+    if(((minPrice == undefined) || (minPrice != undefined && parseInt(object.cost) >= minPrice)) &&
             ((maxPrice == undefined) || (maxPrice != undefined && parseInt(object.cost) <= maxPrice))
             //Esta ultima condicion es para el campo de busqueda, pasamos el nombre a mayus para no tener problemas en caracteres
-            && ((search == undefined) || (search != undefined && (object.name.toUpperCase().includes(search)
+            && ((search != undefined && (object.name.toUpperCase().includes(search)
             || object.description.toUpperCase().includes(search))))){
 
         htmlProducts += `
@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
   document.getElementById("filtrar").addEventListener("click", function(){
     minPrice = document.getElementById("desde").value;
     maxPrice = document.getElementById("hasta").value;
-
+    //Verifica si pasamos un numero, un caracter o nada
     if ((minPrice != undefined) && (minPrice != "") && (parseInt(minPrice)) >= 0){
       minPrice = parseInt(minPrice);
     }
