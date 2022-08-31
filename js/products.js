@@ -20,10 +20,7 @@ function sortProducts(criteria){
       });
   }else if (criteria === ORDER_BY_PROD_RELEVANCE){
       prod.products.sort(function(a, b) {
-          let aCount = parseInt(a.soldCount);
-          let bCount = parseInt(b.soldCount);
-
-          return bCount - aCount;
+          return parseInt(b.soldCount) - parseInt(a.soldCount);
       });
   }
 }
@@ -35,7 +32,7 @@ function showProducts(){
   for (let object of prod.products) {
     if(((minPrice == undefined) || (minPrice != undefined && parseInt(object.cost) >= minPrice)) &&
             ((maxPrice == undefined) || (maxPrice != undefined && parseInt(object.cost) <= maxPrice))
-            //Esta ultima condicion es para el campo de busqueda, pasamos el nombre a mayus para no tener problemas en caracteres
+        //Esta ultima condición es para el campo de búsqueda, pasamos el nombre a mayúsculas para no tener problemas en caracteres
             && ((search != undefined && (object.name.toUpperCase().includes(search)
             || object.description.toUpperCase().includes(search))))){
 
@@ -75,16 +72,19 @@ document.addEventListener("DOMContentLoaded", function (e) {
   //Filtrado por relevancia-precio
   document.getElementById("asc").addEventListener("click", function(){
     sortProducts(ORDER_ASC_BY_PRICE);
+    document.getElementById("btnGroupDrop1").innerHTML = document.getElementById("asc").innerHTML;
     showProducts();
   })
 
   document.getElementById("des").addEventListener("click", function(){
     sortProducts(ORDER_DESC_BY_PRICE);
+    document.getElementById("btnGroupDrop1").innerHTML = document.getElementById("des").innerHTML;
     showProducts();
   })
   
   document.getElementById("rel").addEventListener("click", function(){
     sortProducts(ORDER_BY_PROD_RELEVANCE);
+    document.getElementById("btnGroupDrop1").innerHTML = document.getElementById("rel").innerHTML;
     showProducts();
   })
   //filtrado por max-min precio
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     showProducts();
   });
 
-  //barra de busqueda
+  //barra de búsqueda
   document.getElementById("busqueda").addEventListener("input", function(){
     //Busca el valor del campo de busqueda y lo lleva a mayusculas
     search = document.getElementById("busqueda").value;
