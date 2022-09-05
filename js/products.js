@@ -1,4 +1,4 @@
-//Dependiendo de la categoria a la que se entre buscamos el id que se guarda 
+//Dependiendo de la categoría a la que se entre buscamos el id que se guarda 
 const URL = PRODUCTS_URL + localStorage.getItem('catID') + EXT_TYPE;
 let prod=[];
 const ORDER_ASC_BY_PRICE = "1-2";
@@ -7,6 +7,11 @@ const ORDER_BY_PROD_RELEVANCE = "Cant.";
 let minPrice = undefined;
 let maxPrice = undefined;
 let search = "";
+
+function setProdID(id){
+  sessionStorage.setItem("ProdID", id);
+  
+}
 
 function sortProducts(criteria){
   //Dado un criterio va a ordenar los productos por orden asc, desc o relevancia de ventas
@@ -37,7 +42,7 @@ function showProducts(){
             || object.description.toUpperCase().includes(search))))){
 
         htmlProducts += `
-            <div class="product">
+            <div onclick="setProdID(${object.id})" class="product">
               <a href="product-info.html">
                 <div class="img-container">
                   <img src=${object.image} alt="${object.name}" >
@@ -62,10 +67,10 @@ document.addEventListener("DOMContentLoaded", function (e) {
     if (resObj.status === "ok") {
       prod = resObj.data;
       showProducts();
-      //Portadilla que cambia segun la categoria, como solo necesito que se haga una vez lo dejo aqui
+      //Portadilla que cambia según la categoría, como solo necesito que se haga una vez lo dejo aquí
       document.getElementById("btnGroupAddon").innerHTML = `${prod.products[1].currency}`
       document.getElementById("port").innerHTML=`${prod.catName}`;
-      document.getElementById("intro").innerHTML=`Encuentre los mejores precios en la categoria ${prod.catName} del mercado.`;
+      document.getElementById("intro").innerHTML=`Encuentre los mejores precios en la categoría ${prod.catName} del mercado.`;
     }
   });
 
@@ -91,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
   document.getElementById("filtrar").addEventListener("click", function(){
     minPrice = document.getElementById("desde").value;
     maxPrice = document.getElementById("hasta").value;
-    //Verifica si pasamos un numero, un caracter o nada
+    //Verifica si pasamos un numero, un carácter o nada
     if ((minPrice != undefined) && (minPrice != "") && (parseInt(minPrice)) >= 0){
       minPrice = parseInt(minPrice);
     }
@@ -116,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
   //barra de búsqueda
   document.getElementById("busqueda").addEventListener("input", function(){
-    //Busca el valor del campo de busqueda y lo lleva a mayusculas
+    //Busca el valor del campo de búsqueda y lo lleva a mayúsculas
     search = document.getElementById("busqueda").value;
     search = search.toUpperCase();
     showProducts();
