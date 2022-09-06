@@ -1,0 +1,25 @@
+body{
+     background-color: #e2e2e2;
+}
+.container{
+     display: grid;
+     grid-template-columns: 1fr 1fr;
+}
+.smallImg img{
+     display: inline-block;
+     height: 80px;
+     border: 1px solid #ccc;
+}
+.smallImg a{
+     text-decoration: none;
+}
+
+#comentario{
+     display: grid;
+     box-sizing: border-box;
+     box-shadow: .5rem .5rem 1rem #ccc;
+}
+#title{
+     width: fit-content;
+     height: fit-content;
+}

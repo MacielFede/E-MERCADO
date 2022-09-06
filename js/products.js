@@ -1,9 +1,9 @@
 //Dependiendo de la categoría a la que se entre buscamos el id que se guarda 
 const URL = PRODUCTS_URL + localStorage.getItem('catID') + EXT_TYPE;
-let prod=[];
 const ORDER_ASC_BY_PRICE = "1-2";
 const ORDER_DESC_BY_PRICE = "2-1";
 const ORDER_BY_PROD_RELEVANCE = "Cant.";
+let prod=[];
 let minPrice = undefined;
 let maxPrice = undefined;
 let search = "";
