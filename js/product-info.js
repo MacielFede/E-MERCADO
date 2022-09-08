@@ -18,6 +18,7 @@ let userComment = {
 function ImagesAnim(obj){
 //Agrega la animación de hover a cada imagen del producto
      obj.forEach((img, i) => {
+     //Uso el indice de cada imagen para saber que id utiliza
      smallImages[i] = document.getElementById(`smImg${i}`);
      });
      for(let i=0;i<smallImages.length;i++){
@@ -117,7 +118,6 @@ function sendUserComment(obj){
           let punt = document.getElementById("punt").selectedIndex;
           if( com == ""  || punt == ""){
                if(( com == "") && ( punt == "")){
-
                     document.getElementById("err1").style.display="block";
                     document.getElementById("com").style.borderColor="red";
                     document.getElementById("err2").style.display="block";
@@ -140,7 +140,6 @@ function sendUserComment(obj){
                userComment.score = parseInt(punt);
                userComment.user = localStorage.getItem("UserName");
                userComment.dateTime = date.getFullYear() + '-' + (date.getMonth()+1)+ '-' + date.getDate() + ' ' + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-               obj.push(userComment);
                //Define el comentario en el localStorage para que siga apareciendo mas tarde
                localStorage.setItem(`${userComment.product}`+"Comments", JSON.stringify(userComment));
                location.reload();
@@ -178,6 +177,7 @@ document.addEventListener("DOMContentLoaded", function(e){
                     }else if(confirm("Ya hiciste tu comentario! No se pueden hacer 2.\nQuieres editar tu comentario actual?")){
                          sendUserComment(ProdComments);
                     }else{
+                    //Descartamos todo lo dado por el usuario
                          document.getElementById("com").value = "";
                          document.getElementById("punt").selectedIndex = 0;
                     }
@@ -185,10 +185,12 @@ document.addEventListener("DOMContentLoaded", function(e){
                //Comportamiento de eliminar un comentario
                document.getElementById("eliminarCom").addEventListener("click",function(e){
                     if(localStorage.getItem(`${userComment.product}`+"Comments") != null
+                    //confirmamos si el usuario quiere cambiar su opinion
                     && confirm("Estas seguro que quieres eliminar tu comentario?")){
                          localStorage.removeItem(`${userComment.product}`+"Comments");
                          location.reload();
                     }else if(localStorage.getItem(`${userComment.product}`+"Comments") == null){
+                    //Avisamos que no hay comentarios para eliminar
                          alert("No hay comentarios para eliminar!");
                     }
                });
