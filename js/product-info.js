@@ -104,6 +104,7 @@ function showUserCommOption(){
           <div id="err2">Es necesario poner una calificación.</div>
           <div class="col-12">
                <button id="enviarCom" class="btn btn-primary mt-3" type="submit">Enviar opinión</button>
+               <button id="eliminarCom" class="btn btn-primary mt-3" type="submit">Eliminar opinión</button>
           </div>
      </div>
      `;
@@ -141,7 +142,7 @@ function sendUserComment(obj){
                userComment.dateTime = date.getFullYear() + '-' + (date.getMonth()+1)+ '-' + date.getDate() + ' ' + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
                obj.push(userComment);
                //Define el comentario en el localStorage para que siga apareciendo mas tarde
-               localStorage.setItem("ThisPcComments", JSON.stringify(userComment));
+               localStorage.setItem(`${userComment.product}`+"Comments", JSON.stringify(userComment));
                location.reload();
           }
 }
@@ -164,21 +165,31 @@ document.addEventListener("DOMContentLoaded", function(e){
                     ProdComments = resObj.data;
                }
                //Verificamos si el localStorage cuenta con algún comentario puesto por el usuario en su pc.
-               if(localStorage.getItem("ThisPcComments") != null){
-                    ProdComments.push(JSON.parse(localStorage.getItem("ThisPcComments")));
+               if(localStorage.getItem(`${userComment.product}`+"Comments") != null &&
+               localStorage.getItem(`${userComment.product}`+"Comments").includes(`${ProdInfo.id}`)){
+                    ProdComments.push(JSON.parse(localStorage.getItem(`${userComment.product}`+"Comments")));
                }
                ShowProductComments(ProdComments);
                showUserCommOption();
-               //Agregamos un eventListener al botón de submit.
+               //Agregamos un eventListener al botón de submit
                document.getElementById("enviarCom").addEventListener("click", function(e){
-                    if(localStorage.getItem("ThisPcComments") == null){
+                    if(localStorage.getItem(`${userComment.product}`+"Comments") == null){
                          sendUserComment(ProdComments);
-                    }else if(confirm("Ya hiciste tu comentario! No se pueden hacer 2.\nQuieres eliminar tu comentario actual?")){
-                         localStorage.removeItem("ThisPcComments");
-                         location.reload();
+                    }else if(confirm("Ya hiciste tu comentario! No se pueden hacer 2.\nQuieres editar tu comentario actual?")){
+                         sendUserComment(ProdComments);
                     }else{
                          document.getElementById("com").value = "";
                          document.getElementById("punt").selectedIndex = 0;
+                    }
+               });
+               //Comportamiento de eliminar un comentario
+               document.getElementById("eliminarCom").addEventListener("click",function(e){
+                    if(localStorage.getItem(`${userComment.product}`+"Comments") != null
+                    && confirm("Estas seguro que quieres eliminar tu comentario?")){
+                         localStorage.removeItem(`${userComment.product}`+"Comments");
+                         location.reload();
+                    }else if(localStorage.getItem(`${userComment.product}`+"Comments") == null){
+                         alert("No hay comentarios para eliminar!");
                     }
                });
           });

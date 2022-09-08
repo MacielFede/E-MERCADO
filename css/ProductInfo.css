@@ -48,11 +48,25 @@ body{
      box-shadow: .5rem .5rem 1rem #ccc,
      -.5rem -.5rem 1rem #fff;
 }
-#enviarCom:hover{
+#eliminarCom{
+     margin: 20px 0 0 20px;
+     background-color: #ff6464;
+     font-weight: semibold;
+     color: white;
+     font-size: 1rem;
+     padding: 1rem 1.5rem;
+     border: 2px solid #eee;
+     border-radius: .5rem;
+     cursor: pointer;
+     transition: all 1s ease;
+     box-shadow: .5rem .5rem 1rem #ccc,
+     -.5rem -.5rem 1rem #fff;
+}
+#enviarCom:hover, #eliminarCom:hover{
      box-shadow: .5rem .5rem 1rem #fff,
      -.5rem -.5rem 1rem #ccc;
 }
-#enviarCom:active{
+#enviarCom:active, #eliminarCom:active{
      box-shadow: inset .2rem .2rem 1rem #ccc,
      inset -.2rem -.2rem 1rem #fff;
 }
