@@ -4,7 +4,9 @@ let ProdInfo = [];
 let ProdComments = [];
 let imgContent = ""
 let htmlContent = "";
+//Este arreglo esta creado ya que no me dejaba iterar con una HTMLCollection
 let smallImages = [];
+//Dejamos definido el objeto del comentario del usuario
 let userComment = {
      product: sessionStorage.getItem("ProdID"),
      score: "",
@@ -12,30 +14,15 @@ let userComment = {
      user: "",
      dateTime: ""
 };
-let firstTime = true;
-
-
-// function getData(URL){
-// //Hago 2 funciones para asi no tener que repetir código al buscar las urls
-//      getJSONData(URL).then(function (resObj) {
-//           if (resObj.status === "ok") {
-//                //Uso += para que los comentarios del usuario aparezcan aunque apague la pc
-//                if(flag){
-//                     ProdInfo = resObj.data;
-//                     flag = false;
-//                }else{
-//                     ProdComments += resObj.data;
-//                }
-//           }
-//      });
-// }
 
 function ImagesAnim(obj){
+//Agrega la animación de hover a cada imagen del producto
      obj.forEach((img, i) => {
      smallImages[i] = document.getElementById(`smImg${i}`);
      });
      for(let i=0;i<smallImages.length;i++){
           smallImages[i].addEventListener("mouseover", function(e){
+               //Lo que hacemos es cambiar la referencia de la imagen original
                document.getElementById("ogImg").src = smallImages[i].src;
           });
      }
@@ -71,7 +58,9 @@ function ShowProductComments(obj){
 //Muestra los comentarios y puntuaciones del producto mostrado.
      document.getElementById("Comment").innerHTML = "";
      for(let comment of obj){
-          if(firstTime || comment.score > 0){
+          //Al recargar la pagina cada vez que se interactúa con el formulario de ingresar comentario no necesitamos chequear 
+          //el tipo de dato de comment.score
+          if(comment.score > 0){
                let stars = comment.score;
                comment.score="";
                for(let i=0; i<5; i++){
@@ -92,25 +81,27 @@ function ShowProductComments(obj){
           `;
           document.getElementById("Comment").innerHTML += htmlContent;
      }
-     firstTime = false;
 }
 
 function showUserCommOption(){
+//Muestra el formulario para ingresar el comentario. Lo hago asi porque tendría un problema de formato si no.
      htmlContent = `
      <div id="tuComentario" class="w-100">
           <h2 id="title" class="fs-3 col">Escribe tu opinión</h2>
-          <div class="mb-3">
+          <div class="mb-1">
                <label for="exampleFormControlTextarea1" class="form-label">Tu comentario</label>
                <textarea id="com" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Me encanto porque..."></textarea>
           </div>
+          <div id="err1">Es necesario ingresar un comentario.</div>
           <select id="punt" class="form-select class="w-50" aria-label="Default select example">
-               <option selected hidden>Tu puntuación</option>
+               <option selected hidden value="0">Tu puntuación</option>
                <option value="1">1</option>
                <option value="2">2</option>
                <option value="3">3</option>
                <option value="4">4</option>
                <option value="5">5</option>
           </select>
+          <div id="err2">Es necesario poner una calificación.</div>
           <div class="col-12">
                <button id="enviarCom" class="btn btn-primary mt-3" type="submit">Enviar opinión</button>
           </div>
@@ -120,23 +111,36 @@ function showUserCommOption(){
 }
 
 function sendUserComment(obj){
+//Maneja la interacción con el botón de enviar comentario
           let com = document.getElementById("com").value;
           let punt = document.getElementById("punt").selectedIndex;
-          if(com == undefined || com == ""  || punt == undefined || punt == ""){
-               if((com == undefined || com == "") && (punt == undefined || punt == "")){
-                    alert("Debes ingresar una opinión y una puntuación!");
-               }else if(com == undefined || com == ""){
-                    alert("Debes ingresar una opinión!");
-               }else if(punt == undefined || punt == ""){
-                    alert("Debes ingresar una puntuación!");
+          if( com == ""  || punt == ""){
+               if(( com == "") && ( punt == "")){
+
+                    document.getElementById("err1").style.display="block";
+                    document.getElementById("com").style.borderColor="red";
+                    document.getElementById("err2").style.display="block";
+                    document.getElementById("punt").style.borderColor="red";
+               }else if(com == ""){
+                    document.getElementById("err1").style.display="block";
+                    document.getElementById("com").style.borderColor="red";
+                    document.getElementById("err2").style.display="none";
+                    document.getElementById("punt").style.borderColor="#4f4f4f";
+               }else if(punt == ""){
+                    document.getElementById("err2").style.display="block";
+                    document.getElementById("punt").style.borderColor="red";
+                    document.getElementById("err1").style.display="none";
+                    document.getElementById("com").style.borderColor="#4f4f4f";
                }
           }else{
+               //Esto obtiene la fecha y hora actual del sistema.
                let date = new Date();
                userComment.description = com;
                userComment.score = parseInt(punt);
                userComment.user = localStorage.getItem("UserName");
                userComment.dateTime = date.getFullYear() + '-' + (date.getMonth()+1)+ '-' + date.getDate() + ' ' + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
                obj.push(userComment);
+               //Define el comentario en el localStorage para que siga apareciendo mas tarde
                localStorage.setItem("ThisPcComments", JSON.stringify(userComment));
                location.reload();
           }
@@ -147,6 +151,7 @@ document.addEventListener("DOMContentLoaded", function(e){
      document.getElementById("u_n").innerHTML = localStorage.getItem("UserName");
 
      //Lo tuve que hacer asi porque no me copiaba el objeto response a los arreglos ya creados
+     //(No se arregla con la anidación del getJSONData)
      getJSONData(PROD_URL).then(function (resObj) {
           if (resObj.status === "ok") {
                ProdInfo = resObj.data;
@@ -164,18 +169,18 @@ document.addEventListener("DOMContentLoaded", function(e){
                }
                ShowProductComments(ProdComments);
                showUserCommOption();
-               
+               //Agregamos un eventListener al botón de submit.
                document.getElementById("enviarCom").addEventListener("click", function(e){
                     if(localStorage.getItem("ThisPcComments") == null){
                          sendUserComment(ProdComments);
+                    }else if(confirm("Ya hiciste tu comentario! No se pueden hacer 2.\nQuieres eliminar tu comentario actual?")){
+                         localStorage.removeItem("ThisPcComments");
+                         location.reload();
                     }else{
-                         if(confirm("Ya hiciste tu comentario! No se pueden hacer 2.\nQuieres eliminar tu comentario actual?")){
-                              localStorage.removeItem("ThisPcComments");
-                              location.reload();
-                         }
+                         document.getElementById("com").value = "";
+                         document.getElementById("punt").selectedIndex = 0;
                     }
                });
           });
      });
-
 });
