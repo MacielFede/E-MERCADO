@@ -1,9 +1,8 @@
 //Dependiendo de la categoría a la que se entre buscamos el id que se guarda 
 const URL = PRODUCTS_URL + localStorage.getItem('catID') + EXT_TYPE;
-const ORDER_ASC_BY_PRICE = "1-2";
-const ORDER_DESC_BY_PRICE = "2-1";
-const ORDER_BY_PROD_RELEVANCE = "Cant.";
+let ACTUAL_SORT_CRITERIA = ""
 let prod=[];
+let orderedProd=[];
 let minPrice = undefined;
 let maxPrice = undefined;
 let search = "";
@@ -13,34 +12,39 @@ function setProdID(id){
   
 }
 
-function sortProducts(criteria){
+function sortAndFilterProducts(){
   //Dado un criterio va a ordenar los productos por orden asc, desc o relevancia de ventas
-  if (criteria === ORDER_ASC_BY_PRICE){
+  if (ACTUAL_SORT_CRITERIA === "1-2"){
       prod.products.sort(function(a, b) {
         return parseInt(a.cost)  - parseInt(b.cost);
       });
-  }else if (criteria === ORDER_DESC_BY_PRICE){
+  }else if (ACTUAL_SORT_CRITERIA === "2-1"){
       prod.products.sort(function(a, b) {
         return parseInt(b.cost) - parseInt(a.cost);
       });
-  }else if (criteria === ORDER_BY_PROD_RELEVANCE){
+  }else if (ACTUAL_SORT_CRITERIA === "Cant."){
       prod.products.sort(function(a, b) {
           return parseInt(b.soldCount) - parseInt(a.soldCount);
       });
   }
+  console.log(minPrice);
+  console.log(maxPrice);
+  orderedProd = prod.products.filter(object => 
+  //Filtramos por precio primero (mínimo y máximo)
+    ((minPrice == undefined) || (minPrice != undefined && parseInt(object.cost) >= minPrice)) &&
+    ((maxPrice == undefined) || (maxPrice != undefined && parseInt(object.cost) <= maxPrice))
+  //Esta ultima condición es para el campo de búsqueda, pasamos el nombre a mayúsculas para no tener problemas en caracteres
+    && ((search != undefined && (object.name.toUpperCase().includes(search))
+    || object.description.toUpperCase().includes(search)))
+  );
+  console.log(orderedProd[0].cost);
 }
 
-function showProducts(){
+function showProducts(array){
   let htmlProducts = "";
   //limpiamos el html para que no se repitan productos
   document.getElementById("product_container").innerHTML = htmlProducts;
-  for (let object of prod.products) {
-    if(((minPrice == undefined) || (minPrice != undefined && parseInt(object.cost) >= minPrice)) &&
-            ((maxPrice == undefined) || (maxPrice != undefined && parseInt(object.cost) <= maxPrice))
-        //Esta ultima condición es para el campo de búsqueda, pasamos el nombre a mayúsculas para no tener problemas en caracteres
-            && ((search != undefined && (object.name.toUpperCase().includes(search)
-            || object.description.toUpperCase().includes(search))))){
-
+  for (let object of array) {
         htmlProducts += `
             <div onclick="setProdID(${object.id})" class="product">
               <a href="product-info.html">
@@ -54,7 +58,6 @@ function showProducts(){
                 <p class="text" > ${object.soldCount} vendidos.</p>
             </div>
             `;
-    }
     document.getElementById("product_container").innerHTML = htmlProducts;
   }
 }
@@ -66,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
   getJSONData(URL).then(function (resObj) {
     if (resObj.status === "ok") {
       prod = resObj.data;
-      showProducts();
+      showProducts(prod.products);
       //Portadilla que cambia según la categoría, como solo necesito que se haga una vez lo dejo aquí
       document.getElementById("btnGroupAddon").innerHTML = `${prod.products[1].currency}`
       document.getElementById("port").innerHTML=`${prod.catName}`;
@@ -76,21 +79,24 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
   //Filtrado por relevancia-precio
   document.getElementById("asc").addEventListener("click", function(){
-    sortProducts(ORDER_ASC_BY_PRICE);
+    ACTUAL_SORT_CRITERIA = "1-2";
+    sortAndFilterProducts();
     document.getElementById("btnGroupDrop1").innerHTML = document.getElementById("asc").innerHTML;
-    showProducts();
+    showProducts(orderedProd);
   })
 
   document.getElementById("des").addEventListener("click", function(){
-    sortProducts(ORDER_DESC_BY_PRICE);
+    ACTUAL_SORT_CRITERIA = "2-1";
+    sortAndFilterProducts();
     document.getElementById("btnGroupDrop1").innerHTML = document.getElementById("des").innerHTML;
-    showProducts();
+    showProducts(orderedProd);
   })
   
   document.getElementById("rel").addEventListener("click", function(){
-    sortProducts(ORDER_BY_PROD_RELEVANCE);
+    ACTUAL_SORT_CRITERIA = "Cant.";
+    sortAndFilterProducts();
     document.getElementById("btnGroupDrop1").innerHTML = document.getElementById("rel").innerHTML;
-    showProducts();
+    showProducts(orderedProd);
   })
   //filtrado por max-min precio
   document.getElementById("filtrar").addEventListener("click", function(){
@@ -107,7 +113,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
     }
     else{ maxPrice = undefined; }
     
-    showProducts();
+    sortAndFilterProducts();
+    showProducts(orderedProd);
   });
 
   //Limpiar filtro de precios
@@ -116,7 +123,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
     maxPrice = undefined;
     document.getElementById("desde").value = "";
     document.getElementById("hasta").value = "";
-    showProducts();
+    sortAndFilterProducts();
+    showProducts(orderedProd);
   });
 
   //barra de búsqueda
@@ -124,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     //Busca el valor del campo de búsqueda y lo lleva a mayúsculas
     search = document.getElementById("busqueda").value;
     search = search.toUpperCase();
-    showProducts();
+    sortAndFilterProducts();
+    showProducts(orderedProd);
   });
 });
