@@ -12,20 +12,18 @@ body{
      border-radius: 3px;
 }
 .smallImg img:hover{
-     box-shadow: .5rem .5rem .5rem black;
+     border: 2px solid red;
 }
 #comentario{
      display: grid;
      box-sizing: border-box;
      box-shadow: .5rem .5rem 1rem #ccc;
 }
-#title{
+.title{
      width: fit-content;
      height: fit-content;
 }
 #ProdDescription{
-     height: fit-content;
-     display: grid;
      box-sizing: border-box;
 }
 #err1, #err2{
@@ -40,7 +38,7 @@ body{
      font-weight: semibold;
      color: #444;
      font-size: 1rem;
-     padding: 1rem 1.5rem;
+     padding: 1rem 1rem;
      border: 2px solid #eee;
      border-radius: .5rem;
      cursor: pointer;
@@ -50,13 +48,9 @@ body{
 }
 #eliminarCom{
      margin: 20px 0 0 20px;
-     background-color: #ff6464;
      font-weight: semibold;
-     color: white;
      font-size: 1rem;
-     padding: 1rem 1.5rem;
-     border: 2px solid #eee;
-     border-radius: .5rem;
+     padding: 1rem 1rem;
      cursor: pointer;
      transition: all 1s ease;
      box-shadow: .5rem .5rem 1rem #ccc,
@@ -69,4 +63,30 @@ body{
 #enviarCom:active, #eliminarCom:active{
      box-shadow: inset .2rem .2rem 1rem #ccc,
      inset -.2rem -.2rem 1rem #fff;
+}
+.product{
+     margin-bottom: 2rem;
+     width: 75%;
+     border-radius: 1rem;
+     border-color: #ccc;
+     border-style: solid;
+     border-width: 0.01rem;
+     float: right;
+}
+.product .img-container{
+     overflow: hidden;
+     position: relative;
+     display: inline-block;
+     margin-top: 2px;
+     text-decoration: none;
+     color: white;
+     padding: 15px;
+}
+.product .img-container img{
+     width: 100%;
+     display: block;
+}
+.product:hover{
+     background-color: #eaeded;
+     cursor: pointer;
 }

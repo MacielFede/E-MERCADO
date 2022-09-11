@@ -27,8 +27,6 @@ function sortAndFilterProducts(){
           return parseInt(b.soldCount) - parseInt(a.soldCount);
       });
   }
-  console.log(minPrice);
-  console.log(maxPrice);
   orderedProd = prod.products.filter(object => 
   //Filtramos por precio primero (mínimo y máximo)
     ((minPrice == undefined) || (minPrice != undefined && parseInt(object.cost) >= minPrice)) &&
@@ -37,7 +35,6 @@ function sortAndFilterProducts(){
     && ((search != undefined && (object.name.toUpperCase().includes(search))
     || object.description.toUpperCase().includes(search)))
   );
-  console.log(orderedProd[0].cost);
 }
 
 function showProducts(array){

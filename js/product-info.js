@@ -42,22 +42,26 @@ function showProductInfo(obj){
                ${imgContent}
           </div>
      </div>
-     <div id="ProdDescription">
-          <h2 class="row">${obj.category} > ${obj.name}</h2>
-          <span class="row">${obj.description}</span>
-          <span class="row d-flex align-items-center">${obj.currency} <h3 class="fs-4 col">${obj.cost}</h3></span>
-          <span class="row">${obj.soldCount} vendidos hasta el momento.</span>
+     <div id="ProdDescription" class="d-flex flex-column align-items-center">
+          <div class="float-end h-100">
+               <h2 class="row">${obj.category} > ${obj.name}</h2>
+               <span class="row">${obj.description}</span>
+               <span class="row d-flex align-items-center">${obj.currency} <h3 class="fs-4 col">${obj.cost}</h3></span>
+               <span class="row">${obj.soldCount} vendidos hasta el momento.</span>
+               <div id="addToCart" class="p-3 justify-content-center bg-success mt-5 btn btn-primary "><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+               <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"></path>
+               <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z">
+               </path></svg>  Agregar al carrito</div>   
+          </div>
      </div>
      `;
-     //Botón de compra
-     //<div class="btn btn-primary row w-25">botón</div>
      
      document.getElementById("Info").innerHTML = htmlContent;
 }
 
 function ShowProductComments(obj){
 //Muestra los comentarios y puntuaciones del producto mostrado.
-     document.getElementById("Comment").innerHTML = "";
+     document.getElementById("Comment").innerHTML = `<h2 class="title fs-3 col">Opiniones destacadas</h2>`;
      for(let comment of obj){
           //Al recargar la pagina cada vez que se interactúa con el formulario de ingresar comentario no necesitamos chequear 
           //el tipo de dato de comment.score
@@ -88,7 +92,7 @@ function showUserCommOption(){
 //Muestra el formulario para ingresar el comentario. Lo hago asi porque tendría un problema de formato si no.
      htmlContent = `
      <div id="tuComentario" class="w-100">
-          <h2 id="title" class="fs-3 col">Escribe tu opinión</h2>
+          <h2 class="title fs-3 col">Escribe tu opinión</h2>
           <div class="mb-1">
                <label for="exampleFormControlTextarea1" class="form-label">Tu comentario</label>
                <textarea id="com" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Me encanto porque..."></textarea>
@@ -105,7 +109,7 @@ function showUserCommOption(){
           <div id="err2">Es necesario poner una calificación.</div>
           <div class="col-12">
                <button id="enviarCom" class="btn btn-primary mt-3" type="submit">Enviar opinión</button>
-               <button id="eliminarCom" class="btn btn-primary mt-3" type="submit">Eliminar opinión</button>
+               <button id="eliminarCom" class="btn btn-outline-danger mt-3" type="submit">Eliminar opinión</button>
           </div>
      </div>
      `;
@@ -146,6 +150,24 @@ function sendUserComment(obj){
           }
 }
 
+function showRelatedProducts(){
+     for(let related of ProdInfo.relatedProducts){
+          htmlContent = `
+          <div onclick="setProdID(${related.id})" class="float-start product col mb-2">
+               <div class="img-container">
+                    <img src=${related.image} alt="${related.name}" >
+               </div>
+               <h3 class="title ps-3" >${related.name}</h3>
+          </div>
+          `;
+          document.getElementById("relatedProd").innerHTML += htmlContent;
+     }
+}
+
+function setProdID(id){
+     sessionStorage.setItem("ProdID", id);
+     location.reload();
+}
 
 document.addEventListener("DOMContentLoaded", function(e){
      document.getElementById("u_n").innerHTML = localStorage.getItem("UserName");
@@ -158,6 +180,7 @@ document.addEventListener("DOMContentLoaded", function(e){
           }
           showProductInfo(ProdInfo);
           ImagesAnim(ProdInfo.images);
+          showRelatedProducts();
      }).then(function(){
           getJSONData(COMMENT_URL).then(function (resObj) {
                if (resObj.status === "ok") {
