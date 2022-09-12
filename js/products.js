@@ -42,8 +42,7 @@ function showProducts(array){
   //limpiamos el html para que no se repitan productos
   document.getElementById("product_container").innerHTML = htmlProducts;
   for (let object of array) {
-        htmlProducts += `
-            <div onclick="setProdID(${object.id})" class="product">
+        htmlProducts += `<div onclick="setProdID(${object.id})" class="product">
               <a href="product-info.html">
                 <div class="img-container">
                   <img src=${object.image} alt="${object.name}" >

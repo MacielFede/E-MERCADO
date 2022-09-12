@@ -67,21 +67,19 @@ function ShowProductComments(obj){
      for(let comment of obj){
           //Al recargar la pagina cada vez que se interactúa con el formulario de ingresar comentario no necesitamos chequear 
           //el tipo de dato de comment.score
-          if(comment.score > 0){
-               let stars = comment.score;
-               comment.score="";
-               for(let i=0; i<5; i++){
-                    if(i<stars){
-                         comment.score += `<span class="fa fa-star checked"></span>`
-                    }
-                    else{
-                         comment.score += `<span class="fa fa-star"></span>`
-                    }
+          let stars = "";
+          for(let i=0; i<5; i++){
+               if(i<comment.score){
+               //Asigna las estrellas según la puntuación del comentario.
+                    stars += `<span class="fa fa-star checked"></span>`;
+               }
+               else{
+                    stars += `<span class="fa fa-star"></span>`;
                }
           }
           htmlContent = `
                <div id="comentario" class="rounded mb-2 w-100">
-                    <span class="ps-3 pt-1 fs-5">${comment.user} - ${comment.score}</span>
+                    <span class="ps-3 pt-1 fs-5">${comment.user} - ${stars}</span>
                     <span class="ps-3 pt-1 text-muted">${comment.dateTime}</span>
                     <span class="ps-3 pt-1 fs-5">${comment.description}</span>
                </div>
@@ -167,6 +165,7 @@ function showRelatedProducts(){
 }
 
 function setProdID(id){
+     //Setae el productId dado al Clickea en los productos relacionados.
      sessionStorage.setItem("ProdID", id);
      location.reload();
 }
@@ -198,6 +197,7 @@ document.addEventListener("DOMContentLoaded", function(e){
                     if(localStorage.getItem(`${userComment.product}`+"Comments") == null){
                          sendUserComment(ProdComments);
                     }else if(confirm("Ya hiciste tu comentario! No se pueden hacer 2.\nQuieres editar tu comentario actual?")){
+                         //Editamos el comentario
                          sendUserComment(ProdComments);
                     }else{
                     //Descartamos todo lo dado por el usuario
@@ -210,6 +210,7 @@ document.addEventListener("DOMContentLoaded", function(e){
                     if(localStorage.getItem(`${userComment.product}`+"Comments") != null
                     //confirmamos si el usuario quiere cambiar su opinion
                     && confirm("Estas seguro que quieres eliminar tu comentario?")){
+                         //Eliminamos el comentario y recargamos la pagina
                          localStorage.removeItem(`${userComment.product}`+"Comments");
                          location.reload();
                     }else if(localStorage.getItem(`${userComment.product}`+"Comments") == null){
