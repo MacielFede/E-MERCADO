@@ -42,11 +42,13 @@ function showProductInfo(obj){
                ${imgContent}
           </div>
      </div>
-     <div id="ProdDescription" class="d-flex flex-column align-items-center">
+     <div id="ProdDescription" class="container d-flex flex-column align-items-center">
           <div class="float-end h-100">
-               <h2 class="row">${obj.category} > ${obj.name}</h2>
+               <div class="row">
+                    <h2 class="p-0"><a id="category" class="fs-3 w-25" href="products.html">${obj.category}<a/> > ${obj.name}</h2>
+               </div>
                <span class="row">${obj.description}</span>
-               <span class="row d-flex align-items-center">${obj.currency} <h3 class="fs-4 col">${obj.cost}</h3></span>
+               <span class="row d-flex align-items-center pt-2 pb-2">${obj.currency} <h3 class="col">${obj.cost}</h3></span>
                <span class="row">${obj.soldCount} vendidos hasta el momento.</span>
                <div id="addToCart" class="p-3 justify-content-center bg-success mt-5 btn btn-primary "><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
                <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"></path>
@@ -153,7 +155,7 @@ function sendUserComment(obj){
 function showRelatedProducts(){
      for(let related of ProdInfo.relatedProducts){
           htmlContent = `
-          <div onclick="setProdID(${related.id})" class="float-start product col mb-2">
+          <div onclick="setProdID(${related.id})" class="product col mb-2">
                <div class="img-container">
                     <img src=${related.image} alt="${related.name}" >
                </div>
@@ -170,8 +172,6 @@ function setProdID(id){
 }
 
 document.addEventListener("DOMContentLoaded", function(e){
-     document.getElementById("u_n").innerHTML = localStorage.getItem("UserName");
-
      //Lo tuve que hacer asi porque no me copiaba el objeto response a los arreglos ya creados
      //(No se arregla con la anidación del getJSONData)
      getJSONData(PROD_URL).then(function (resObj) {

@@ -90,3 +90,10 @@ body{
      background-color: #eaeded;
      cursor: pointer;
 }
+#relatedProd h3{
+     font-size: 1.5rem;
+}
+#category{
+     text-decoration: none;
+     color: black;
+}

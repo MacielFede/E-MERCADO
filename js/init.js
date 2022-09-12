@@ -41,3 +41,36 @@ let getJSONData = function (url) {
       return result;
     });
 };
+
+//Controla si el usuario tiene un username o no y lo redirecciona según donde este
+document.addEventListener("DOMContentLoaded", e => {
+  if(localStorage.getItem("UserName") != null){
+    document.getElementById("u_n").innerHTML = `
+    <div class="btn-group h-100 " role="group" aria-label="Button group with nested dropdown">
+        <div class="btn-group" role="group">
+          <button type="button" 
+            class="btn btn-default dropdown-toggle rounded border-dark text-secondary" data-bs-toggle="dropdown" aria-expanded="false">
+            ${localStorage.getItem("UserName")}
+          </button>
+          <ul class="dropdown-menu bg-dark" aria-labelledby="btnGroupDrop1">
+            <li> <a class="text-secondary nav-link dropdown-item " href="my-profile.html" >Mi perfil</a> </li>
+            <li> <button id="logOut" class="p-2 dropdown-item text-secondary" >Cerrar sesión</button> </li>
+          </ul>
+        </div>
+      </div>
+    `;
+
+    document.getElementById("logOut").addEventListener("click", e => {
+      localStorage.removeItem("UserName")
+      if(window.location.pathname.includes("my-profile.html") || window.location.pathname.includes("cart.html") || window.location.pathname.includes("sell.html")){
+        location.href = "index.html";
+      }else{
+        location.reload();
+      }
+    });
+  }else{
+    document.getElementById("u_n").innerHTML = `
+      <a class="nav-link" href="logIn.html">Iniciar sesión</a>
+    `;
+  }
+});

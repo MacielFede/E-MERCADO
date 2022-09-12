@@ -9,7 +9,7 @@ let search = "";
 
 function setProdID(id){
   sessionStorage.setItem("ProdID", id);
-  
+  location.href = "product-info.html"
 }
 
 function sortAndFilterProducts(){
@@ -60,8 +60,6 @@ function showProducts(array){
 }
 
 document.addEventListener("DOMContentLoaded", function (e) {
-//Username agregado al header
-  document.getElementById("u_n").innerHTML = localStorage.getItem("UserName");
 
   getJSONData(URL).then(function (resObj) {
     if (resObj.status === "ok") {
