@@ -98,7 +98,7 @@ function showUserCommOption(){
                <textarea id="com" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Me encanto porque..."></textarea>
           </div>
           <div id="err1">Es necesario ingresar un comentario.</div>
-          <select id="punt" class="form-select class="w-50" aria-label="Default select example">
+          <select id="punt" class="form-select w-50" aria-label="Default select example" >
                <option selected hidden value="0">Tu puntuación</option>
                <option value="1">1</option>
                <option value="2">2</option>
@@ -114,6 +114,12 @@ function showUserCommOption(){
      </div>
      `;
      document.getElementById("Comment").innerHTML += htmlContent;
+     if(localStorage.getItem("UserName") == null){
+          document.getElementById("com").setAttribute("disabled", true);
+          document.getElementById("punt").setAttribute("disabled", true);
+          document.getElementById("enviarCom").setAttribute("disabled", true);
+          document.getElementById("eliminarCom").setAttribute("disabled", true);
+     }
 }
 
 function sendUserComment(obj){
@@ -143,7 +149,9 @@ function sendUserComment(obj){
                userComment.description = com;
                userComment.score = parseInt(punt);
                userComment.user = localStorage.getItem("UserName");
-               userComment.dateTime = date.getFullYear() + '-' + (date.getMonth()+1)+ '-' + date.getDate() + ' ' + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+               //Debemos usar el slice para que quede en formato correcto la fecha
+               userComment.dateTime = date.getFullYear() + '-' + ('0' + (date.getMonth()+1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2) + ' ' +
+               ('0' + date.getHours()).slice(-2) + ":" + ('0' + date.getMinutes()).slice(-2) + ":" + ('0' + date.getSeconds()).slice(-2);
                //Define el comentario en el localStorage para que siga apareciendo mas tarde
                localStorage.setItem(`${userComment.product}`+"Comments", JSON.stringify(userComment));
                location.reload();
@@ -208,14 +216,16 @@ document.addEventListener("DOMContentLoaded", function(e){
                //Comportamiento de eliminar un comentario
                document.getElementById("eliminarCom").addEventListener("click",function(e){
                     if(localStorage.getItem(`${userComment.product}`+"Comments") != null
-                    //confirmamos si el usuario quiere cambiar su opinion
+                    //confirmamos si el usuario quiere eliminar su opinion
                     && confirm("Estas seguro que quieres eliminar tu comentario?")){
                          //Eliminamos el comentario y recargamos la pagina
                          localStorage.removeItem(`${userComment.product}`+"Comments");
                          location.reload();
                     }else if(localStorage.getItem(`${userComment.product}`+"Comments") == null){
-                    //Avisamos que no hay comentarios para eliminar
-                         alert("No hay comentarios para eliminar!");
+                    //Avisamos que no hay comentarios para eliminar y desactivamos el botón.
+                         document.getElementById("noCommentAlert").classList.remove("d-none");
+                         document.getElementById("noCommentAlert").classList.add("d-inline");
+                         document.getElementById("eliminarCom").setAttribute("disabled", true);
                     }
                });
           });
