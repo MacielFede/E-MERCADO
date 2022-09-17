@@ -2,28 +2,12 @@ body{
      background-color: #f8f9fa;
      text-align: center;
 }
-h2{
-     font-size: 1.5rem;
-}
 img{
-     width: 50%;
+     height: 10rem;
 }
 #info{
-     text-align: center;
-     position: sticky;
-     width: 16%;
-     margin: 0 auto;
-     padding: 10px 0;
-     box-sizing: inherit;
-}
-
-label{
-     text-align: left;
-     font-weight: 500;
-     font-size: 0.9rem;
-     display:block;
-     flex-direction:column;
-     padding: 10px 0 5px 0;
+     min-width: fit-content;
+     margin: auto;
 }
 #enter{
      margin: 20px 0 20px 0;
@@ -47,9 +31,6 @@ label{
      box-shadow: inset .2rem .2rem 1rem #ccc,
      inset -.2rem -.2rem 1rem #fff;
 }
-#passw, #email{
-     width: 16rem;
-}
 #err1, #err2{
      display: none; 
      color: red;
@@ -71,4 +52,10 @@ label{
      margin: 0 auto;
      padding: 1rem 3rem;
      box-sizing: inherit;
+}
+.form-signin{
+     width: 100%;
+     max-width: 330px;
+     padding: 15px;
+     margin: auto;
 }

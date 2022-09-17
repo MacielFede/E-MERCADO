@@ -109,7 +109,7 @@ function showUserCommOption(){
           <div id="err2">Es necesario poner una calificación.</div>
           <div class="col-12">
                <button id="enviarCom" class="btn btn-primary mt-3" type="submit">Enviar opinión</button>
-               <button id="eliminarCom" class="btn btn-outline-danger mt-3" type="submit">Eliminar opinión</button>
+               <button id="eliminarCom" class="btn btn-outline-danger mt-3 ms-3 pt-3 pb-3" type="submit">Eliminar opinión</button>
           </div>
      </div>
      `;

@@ -24,42 +24,41 @@
 </head>
 
 <body>
-  <main>
-    <div id="login">
-      <img src="img/login.png" alt="E-COMMERCIO LOGO">
-      <h2>Bienvenido de nuevo, inicie sesión:</h2>
-      <div id="info">
-        <div>
-          <label for="email">Correo electrónico</label>
-          <input type="text" id="email" placeholder="Introduce tu correo electrónico">
-        </div>
-        <div id="err1">Es necesario poner su correo</div>
-        <div>
-          <label for="passw">Contraseña</label>
-          <input type="password" id="passw"  placeholder="Introduce tu contraseña">
-        </div>
-        <div id="err2">Es necesario poner su contraseña</div>
+  <main class="text-center">
+    <img src="img/login.png" alt="E-COMMERCIO LOGO">
+    <h2 class="h3 mb-3 fw-normal">Bienvenido de nuevo.</h2>
+    <h2 class="h3 mb-3 fw-normal">Inicie sesión:</h2>
+    <div id="info" class="w-25">
+      <div class="form-floating">
+        <input class="form-control" id="email" placeholder="e@mercado.com">
+        <label for="email">Correo electrónico</label>
       </div>
+      <div id="err1">Es necesario poner su correo</div>
+      <div class="form-floating">
+        <input type="password" class="form-control" id="passw" placeholder="Contraseña">
+        <label for="passw">Contraseña</label>
+      </div>
+      <div id="err2">Es necesario poner su contraseña</div>
       <input type="submit" value="Iniciar sesión" id="enter">
-      <p>o</p>
+      <p>o inicie sesión con:</p>
       <div class="g-signin2" data-onsuccess="onSignIn"></div>
     </div>
   </main>
-  <footer class="text-muted" style="text-align: left;">
-    <div class="container">
-      <p class="float-end">
-        <a href="#">Volver arriba</a>
-      </p>
-      <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a> -
-        2022</p>
-      <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+  <footer class="fixed-bottom mt-auto py-3 text-start">
+    <div class="container d-flex">
+      <div class="col-md-8">
+        <p>Este sitio forma parte de <a href="https://jovenesaprogramar.edu.uy/" target="_blank">Jovenes a Programar</a> -
+          2022</p>
+        <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
+      </div>
+      <p class="col-md-4 d-flex justify-content-end"> <a href="#">Volver arriba</a> </p>
     </div>
   </footer>
   <script src="js/logIn.js"></script>
   <script>
-    //Hace que el usuario sea redirigido una vez inicie sesion con google
-    function onSignIn(googleusercontent){
-      localStorage.setItem("UserName", googleusercontent.getBasicProfile().getName());
+    //Hace que el usuario sea redirigido una vez inicie sesión con google
+    function onSignIn(googleUserContent){
+      localStorage.setItem("UserName", googleUserContent.getBasicProfile().getName());
       window.location.href="index.html"
     }
   </script>
