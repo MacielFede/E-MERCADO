@@ -46,27 +46,23 @@ let getJSONData = function (url) {
 document.addEventListener("DOMContentLoaded", e => {
   if(localStorage.getItem("UserName") != null){
     document.getElementById("u_n").innerHTML = `
-    <div class="btn-group h-100 " role="group" aria-label="Button group with nested dropdown">
-        <div class="btn-group" role="group">
-          <button type="button" 
-            class="btn btn-default dropdown-toggle rounded border-dark text-secondary" data-bs-toggle="dropdown" aria-expanded="false">
-            ${localStorage.getItem("UserName")}
-          </button>
-          <ul class="dropdown-menu bg-dark" aria-labelledby="btnGroupDrop1">
-            <li> <a class="text-secondary nav-link dropdown-item " href="my-profile.html" >Mi perfil</a> </li>
-            <li> <button id="logOut" class="p-2 dropdown-item text-secondary" >Cerrar sesión</button> </li>
+    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          ${localStorage.getItem("UserName")}</a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+            <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
+            <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+            <li><a id="logOut" class="dropdown-item" href="logIn.html">Cerrar sesión</a></li>
           </ul>
-        </div>
-      </div>
+        </li>
+      </ul>
+    </div>
     `;
 
     document.getElementById("logOut").addEventListener("click", e => {
-      localStorage.removeItem("UserName")
-      if(window.location.pathname.includes("my-profile.html") || window.location.pathname.includes("cart.html") || window.location.pathname.includes("sell.html")){
-        location.href = "index.html";
-      }else{
-        location.reload();
-      }
+      localStorage.removeItem("UserName");
     });
   }else{
     document.getElementById("u_n").innerHTML = `
