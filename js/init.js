@@ -46,19 +46,15 @@ let getJSONData = function (url) {
 document.addEventListener("DOMContentLoaded", e => {
   if(localStorage.getItem("UserName") != null){
     document.getElementById("u_n").innerHTML = `
-    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          ${localStorage.getItem("UserName")}</a>
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-            <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
-            <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
-            <li><a id="logOut" class="dropdown-item" href="logIn.html">Cerrar sesión</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        ${localStorage.getItem("UserName")}</a>
+        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+          <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>
+          <li><a class="dropdown-item" href="my-profile.html">Mi perfil</a></li>
+          <li><a id="logOut" class="dropdown-item" href="logIn.html">Cerrar sesión</a></li>
+        </ul>
+      </li>
     `;
 
     document.getElementById("logOut").addEventListener("click", e => {
