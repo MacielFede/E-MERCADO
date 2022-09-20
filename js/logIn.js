@@ -25,12 +25,6 @@ function passwordAnimOff(){
      document.getElementById("passw").style.borderColor="#4f4f4f";
 }
 
-//Hace que el usuario sea redirigido una vez inicie sesión con google
-function onSignIn(googleUserContent){
-     localStorage.setItem("UserName", googleUserContent.getBasicProfile().getName());
-     window.location.href="index.html"
-}
-
 function submitLogIn(){
      //Verificamos los valores dentro del evento para saber como están en ese momento
      let email = document.getElementById("email").value;

@@ -59,10 +59,6 @@ document.addEventListener("DOMContentLoaded", e => {
 
     document.getElementById("logOut").addEventListener("click", e => {
       localStorage.removeItem("UserName");
-      let auth2 = gapi.auth2.getAuthInstance();
-      auth2.signOut().then(function () {
-        console.log('User signed out.');
-      });
       window.location.href = "logIn.html";
     });
   }else{

@@ -58,6 +58,14 @@
       </div>
     </div>
   </footer>
+  <script>
+    //Hace que el usuario sea redirigido una vez inicie sesión con google
+    function onSignIn(googleUserContent){
+      localStorage.setItem("UserName", googleUserContent.getBasicProfile().getName());
+      gapi.auth2.getAuthInstance().signOut();
+      window.location.href="index.html"
+    }
+  </script>
   <script src="js/logIn.js"></script>
 </body>
 
