@@ -21,6 +21,18 @@ nav a {
   -ms-user-select: none;
   user-select: none;
 }
+@media (max-width: 500px){
+  #min{
+    padding: 0px;
+  }
+  #max{
+    padding: 0px;
+  }
+  #filtrado{
+    padding-left: 10rem;
+    width: 41.66666667%;
+  }
+} 
 
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
