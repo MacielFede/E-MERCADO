@@ -47,38 +47,41 @@
       <h2 id="port"></h2>
       <p class="lead" id="intro"></p>
     </div>
-    <div id="prod_filters" class="d-grid gap-3 bg-light p-2 container justify-content-md-center w-25 float-start ms-4">
-      <div class="input-wrapper">
-        <div class="fa fa-search"></div>
-        <input id="busqueda" type="search" placeholder="Buscar producto" />
-      </div>
-      <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-        <div class="btn-group" role="group">
-          <button id="btnGroupDrop1" type="button" 
-            class="btn btn-default dropdown-toggle rounded border-dark" data-bs-toggle="dropdown" aria-expanded="false">
-            Ordenar por:
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-            <li> <button id="asc" class="dropdown-item" >Precio: Menor a Mayor.</button> </li>
-            <li> <button id="des" class="dropdown-item" >Precio: Mayor a Menor.</button> </li>
-            <li> <button id="rel" class="dropdown-item">Relevancia.</button> </li>
-          </ul>
+    
+    <main class="container-fluid col-md-12 col-sm-8 d-flex w-100">
+      <div id="main" class="row gap-5 w-100">
+        <div id="prod_filters" class="col-3 d-grid gap-3 bg-light p-2 justify-content-md-center w-25 ms-4 me-4">
+          <div class="input-wrapper">
+            <div class="fa fa-search"></div>
+            <input id="busqueda" type="search" placeholder="Buscar" />
+          </div>
+          <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <div class="btn-group" role="group">
+              <button id="btnGroupDrop1" type="button" 
+                class="btn btn-default dropdown-toggle rounded border-dark" data-bs-toggle="dropdown" aria-expanded="false">
+                Ordenar por:
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                <li> <button id="asc" class="dropdown-item" >Precio: Menor a Mayor.</button> </li>
+                <li> <button id="des" class="dropdown-item" >Precio: Mayor a Menor.</button> </li>
+                <li> <button id="rel" class="dropdown-item">Relevancia.</button> </li>
+              </ul>
+            </div>
+          </div>
+          <div class="input-group">
+            <div class="input-group-text" id="btnGroupAddon"></div>
+            <input id="desde"type="text" class="form-control" placeholder="Desde: " aria-label="Desde: " aria-describedby="btnGroupAddon"/>
+            <p>&nbsp;-&nbsp;</p>
+            <input id="hasta" type="text" class="form-control" placeholder="Hasta: " aria-label="Hasta: " aria-describedby="btnGroupAddon"/>
+            <button id="filtrar"type="button" class="btn btn-default rounded border-dark an1">Ir</button>
+          </div>
+          <button id="limpiar" type="button" class="btn btn-default rounded border-dark an1">Limpiar precio.</button>
+        </div>
+        <div id="product_container" class="col-9 w-50 ms-2">
         </div>
       </div>
-      <div class="input-group">
-        <div class="input-group-text" id="btnGroupAddon"></div>
-        <input id="desde"type="text" class="form-control" placeholder="Desde: " aria-label="Desde: " aria-describedby="btnGroupAddon"/>
-        <p>&nbsp;-&nbsp;</p>
-        <input id="hasta" type="text" class="form-control" placeholder="Hasta: " aria-label="Hasta: " aria-describedby="btnGroupAddon"/>
-        <button id="filtrar"type="button" class="btn btn-default rounded border-dark an1">Ir</button>
-      </div>
-      <button id="limpiar" type="button" class="btn btn-default rounded border-dark an1">Limpiar precio.</button>
-    </div>
-    <main class=" container w-50 float-start">
-      <div id="product_container">
-
-      </div>
     </main>
+
     <footer class="sticky-top mt-5 py-3 text-start">
       <div class="container d-flex">
         <div class="col-sm-8">
