@@ -50,33 +50,43 @@
     
     <main class="container-fluid col-md-12 col-sm-8 d-flex w-100">
       <div id="main" class="row gap-5 w-100">
-        <div id="prod_filters" class="col-3 d-grid gap-3 bg-light p-2 justify-content-md-center w-25 ms-4 me-4">
-          <div class="input-wrapper">
+        <div id="prod_filters" class="col-3 d-grid gap-2 bg-light p-2 w-25 ms-4 me-4">
+          <div class="input-wrapper w-100">
             <div class="fa fa-search"></div>
             <input id="busqueda" type="search" placeholder="Buscar" />
           </div>
-          <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-            <div class="btn-group" role="group">
-              <button id="btnGroupDrop1" type="button" 
-                class="btn btn-default dropdown-toggle rounded border-dark" data-bs-toggle="dropdown" aria-expanded="false">
-                Ordenar por:
+          <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid d-lg-none">
+              <a class="navbar-brand" href="#">Filtros</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
               </button>
-              <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                <li> <button id="asc" class="dropdown-item" >Precio: Menor a Mayor.</button> </li>
-                <li> <button id="des" class="dropdown-item" >Precio: Mayor a Menor.</button> </li>
-                <li> <button id="rel" class="dropdown-item">Relevancia.</button> </li>
-              </ul>
             </div>
+          </nav>
+          <div id="navbarToggleExternalContent" class="bg-light p-2 d-lg-block">
+            <div class="btn-group float-start mb-2" role="group" aria-label="Button group with nested dropdown">
+              <div class="btn-group" role="group">
+                <button id="btnGroupDrop1" type="button" 
+                  class="btn btn-default dropdown-toggle rounded border-dark" data-bs-toggle="dropdown" aria-expanded="false">
+                  Ordenar por:
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                  <li> <button id="asc" class="dropdown-item" >Precio: Menor a Mayor.</button> </li>
+                  <li> <button id="des" class="dropdown-item" >Precio: Mayor a Menor.</button> </li>
+                  <li> <button id="rel" class="dropdown-item">Relevancia.</button> </li>
+                </ul>
+              </div>
+            </div>
+            <div class="input-group float-start mb-2">
+              <div class="input-group-text" id="btnGroupAddon"></div>
+              <input id="desde"type="text" class="form-control" placeholder="Desde: " aria-label="Desde: " aria-describedby="btnGroupAddon"/>
+              <p>&nbsp;-&nbsp;</p>
+              <input id="hasta" type="text" class="form-control" placeholder="Hasta: " aria-label="Hasta: " aria-describedby="btnGroupAddon"/>
+              <button id="filtrar"type="button" class="btn btn-default rounded border-dark an1">Ir</button>
+            </div>
+            <button id="limpiar" type="button" class="float-start btn btn-default rounded border-dark an1">Limpiar precio.</button>
           </div>
-          <div class="input-group">
-            <div class="input-group-text" id="btnGroupAddon"></div>
-            <input id="desde"type="text" class="form-control" placeholder="Desde: " aria-label="Desde: " aria-describedby="btnGroupAddon"/>
-            <p>&nbsp;-&nbsp;</p>
-            <input id="hasta" type="text" class="form-control" placeholder="Hasta: " aria-label="Hasta: " aria-describedby="btnGroupAddon"/>
-            <button id="filtrar"type="button" class="btn btn-default rounded border-dark an1">Ir</button>
           </div>
-          <button id="limpiar" type="button" class="btn btn-default rounded border-dark an1">Limpiar precio.</button>
-        </div>
         <div id="product_container" class="col-9 w-50 ms-2">
         </div>
       </div>
