@@ -63,7 +63,7 @@
               </button>
             </div>
           </nav>
-          <div id="navbarToggleExternalContent" class="bg-light p-2 d-lg-block">
+          <div id="navbarToggleExternalContent" class="bg-light p-2">
             <div class="btn-group float-start mb-2" role="group" aria-label="Button group with nested dropdown">
               <div class="btn-group" role="group">
                 <button id="btnGroupDrop1" type="button" 
@@ -91,6 +91,12 @@
         </div>
       </div>
     </main>
+
+    <script>
+      if(window.innerWidth <= 991){
+        document.getElementById("navbarToggleExternalContent").classList.add("collapse");
+      }
+    </script>
 
     <footer class="sticky-top mt-5 py-3 text-start">
       <div class="container d-flex">

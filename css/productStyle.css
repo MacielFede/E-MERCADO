@@ -2,32 +2,7 @@ body{
     font-family: 'Raleway', serif;
     text-align: center;
 }
-@media (max-width: 991px){
-  #prod_filters{
-    width: 71%!important;
-  }
-  #product_container{
-    width: fit-content!important;
-  }
-  .product{
-    float: left;
-  }
-  #main{
-    gap: 1rem!important;
-  }
-  .product .img-container .price{
-    padding: 5px!important;
-    border-radius: 0.5rem!important;
-  }
-}
-@media (max-width: 570px){
-  .product{
-    width: 100%!important;
-  }
-  #prod_filters{
-    width: 91%!important;
-  }
-}
+
 .product{
     border-radius: 1rem;
     border-color: #ccc;
@@ -87,4 +62,30 @@ body{
 .an1:active{
   box-shadow: inset .2rem .2rem 1rem #ccc,
   inset -.2rem -.2rem 1rem #fff;
+}
+@media (max-width: 991px){
+  #prod_filters{
+    width: 71%!important;
+  }
+  #product_container{
+    width: fit-content!important;
+  }
+  .product{
+    float: left;
+  }
+  #main{
+    gap: 1rem!important;
+  }
+}
+@media (max-width: 570px){
+  .product .img-container .price{
+    padding: 5px!important;
+    border-radius: 0.5rem!important;
+  }
+  .product{
+    width: 100%!important;
+  }
+  #prod_filters{
+    width: 91%!important;
+  }
 }
