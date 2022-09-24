@@ -92,3 +92,13 @@ body{
 #noCommentAlert {
      z-index: 999;
 }
+@media (max-width: 1199px){
+     #ogImg, .smallImg{
+          width: 100%!important;
+     }
+} 
+@media (min-width: 1000px){
+     #addToCart{
+          width: 50%;
+     }
+}
