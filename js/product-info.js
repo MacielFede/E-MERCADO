@@ -48,7 +48,7 @@ function showProductInfo(obj){
                <span class=" d-flex align-items-center py-2">${obj.currency}<h3 class="col">  ${obj.cost}</h3></span>
                <span class="">${obj.soldCount} vendidos hasta el momento.</span>
 
-          <div id="addToCart" class="mt-2 p-3 d-flex justify-content-center align-items-center bg-success btn btn-primary ">
+          <div id="addToCart" class="mt-2 p-3 d-flex justify-content-center align-items-center bg-success btn btn-success">
           <svg class="me-2"xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
           <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"></path>
           <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z">
@@ -76,7 +76,7 @@ function ShowProductComments(obj){
                }
           }
           htmlContent = `
-               <div id="comentario" class="rounded mb-2 w-100">
+               <div id="comentario" class="rounded py-2 mb-2 w-100">
                     <span class="ps-3 pt-1 fs-5">${comment.user} - ${stars}</span>
                     <span class="ps-3 pt-1 text-muted">${comment.dateTime}</span>
                     <span class="ps-3 pt-1 fs-5">${comment.description}</span>
@@ -89,11 +89,15 @@ function ShowProductComments(obj){
 function showUserCommOption(){
 //Muestra el formulario para ingresar el comentario. Lo hago asi porque tendría un problema de formato si no.
      htmlContent = `
-     <div id="tuComentario" class="w-100">
-          <h2 class="title fs-3 col">Escribe tu opinión</h2>
-          <div class="mb-1">
-               <label for="exampleFormControlTextarea1" class="form-label">Tu comentario</label>
-               <textarea id="com" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Me encanto porque..."></textarea>
+     <div id="tuComentario" class="mb-5">
+          <h2 class="title fs-3">Escribe tu opinión</h2>
+          <div id="uc" class="mb-1 w-100">
+               <label for="exampleFormControlTextarea1" class="form-label">Tu comentario:</label>
+               <textarea id="com" class="form-control" maxlength="200" id="exampleFormControlTextarea1" rows="3" placeholder="Me encanto porque..."></textarea>
+               <div id="the-count" class="float-end mb-1 fs-6">
+                    <span id="current">0</span>
+                    <span>/ 200</span>
+               </div>     
           </div>
           <div id="err1">Es necesario ingresar un comentario.</div>
           <select id="punt" class="form-select w-50" aria-label="Default select example" >
@@ -159,7 +163,7 @@ function sendUserComment(obj){
 function showRelatedProducts(){
      for(let related of ProdInfo.relatedProducts){
           htmlContent = `
-          <div onclick="setProdID(${related.id})" class="product col mb-2">
+          <div onclick="setProdID(${related.id})" class="product mb-2">
                <div class="img-container">
                     <img src=${related.image} alt="${related.name}" >
                </div>
@@ -224,6 +228,16 @@ document.addEventListener("DOMContentLoaded", function(e){
                          document.getElementById("noCommentAlert").classList.remove("d-none");
                          document.getElementById("noCommentAlert").classList.add("d-inline");
                          document.getElementById("eliminarCom").setAttribute("disabled", true);
+                    }
+               });
+
+               document.getElementById("com").addEventListener("keyup", function() {
+                    let characterCount = this.value.length;
+                    document.getElementById("current").innerHTML = characterCount;
+                    if(characterCount === 200){
+                         document.getElementById("the-count").style.color = "red";
+                    }else{
+                         document.getElementById("the-count").style.color = "black";
                     }
                });
           });

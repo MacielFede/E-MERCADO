@@ -1,6 +1,9 @@
 body{
      background-color: #f8f9fa;
 }
+#com{
+     resize: none;
+}
 .container{
      grid-template-columns: 1fr 1fr;
 }
@@ -63,7 +66,6 @@ body{
      border-color: #ccc;
      border-style: solid;
      border-width: 0.01rem;
-     float: right;
 }
 .product .img-container{
      overflow: hidden;
@@ -92,13 +94,31 @@ body{
 #noCommentAlert {
      z-index: 999;
 }
-@media (max-width: 1199px){
+@media (max-width: 1200px){
      #ogImg, .smallImg{
           width: 100%!important;
      }
 } 
-@media (min-width: 1000px){
+@media (min-width: 1200px){
+     #comentario{
+          width: 75%!important;
+     }
+     #uc{
+          width: 75%!important;
+     }
+}
+@media (min-width: 991px){
      #addToCart{
           width: 50%;
+     }
+}
+@media (min-width:770px) and (max-width:991px){
+     .product{
+          width: 100%;
+     }
+}
+@media (max-width: 680px){
+     #noCommentAlert{
+          width: 80%;
      }
 }
