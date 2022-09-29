@@ -31,16 +31,52 @@ function ImagesAnim(obj){
 
 function showProductInfo(obj){
 //Muestra la información del producto usando el DOM
-     obj.images.forEach((img, i) => {
-          imgContent += `<img src="${img}" class="w-25" alt="product image" id="smImg${i}">
-`;
-     });
-     htmlContent = `
-     <div id="imagesContainer" class="col-md-6 col-sm-12">
+     if(window.innerWidth <= 767){
+          imgContent = `<div id="carouselExampleControls" class="carousel slide" data-bs-interval="false" data-bs-ride="carousel">
+          `
+          imgContent += `
+          <div class="carousel-inner">`;
+          obj.images.forEach((img, i) => {
+               if(i == 0){
+                    imgContent += `
+                    <div class="carousel-item active">
+                         <img src="${img}" class="d-block w-100" alt="prodImage">
+                    </div>`;
+               }else{
+                    imgContent += `
+                    <div class="carousel-item">
+                         <img src="${img}" class="d-block w-100" alt="prodImage">
+                    </div>`;
+               }
+          });
+          imgContent +=`
+               </div>
+               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+               </button>
+               <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+               </button>
+          </div>`
+     }else{
+          imgContent = `
           <img src="${obj.images[0]}" id="ogImg" class="w-75">
           <div class="smallImg mt-3 d-flex w-75">
-               ${imgContent}
-          </div>
+          `;
+          obj.images.forEach((img, i) => {
+               imgContent +=`
+               <img src="${img}" class="w-25" alt="product image" id="smImg${i}">
+               `;
+          });
+          imgContent += `
+          </div>`;
+     }
+
+     htmlContent = `
+     <div id="imagesContainer" class="col-md-6 col-sm-12">
+          ${imgContent}
      </div>
      <div id="ProdDescription" class="mt-2 col-md-6 col-sm-12 d-flex flex-column">
                <h2 class="p-0"> ${obj.category} > ${obj.name}</h2>
@@ -188,7 +224,9 @@ document.addEventListener("DOMContentLoaded", function(e){
                ProdInfo = resObj.data;
           }
           showProductInfo(ProdInfo);
-          ImagesAnim(ProdInfo.images);
+          if(window.innerWidth > 767){
+               ImagesAnim(ProdInfo.images);
+          }
           showRelatedProducts();
      }).then(function(){
           getJSONData(COMMENT_URL).then(function (resObj) {
