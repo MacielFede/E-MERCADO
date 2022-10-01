@@ -45,9 +45,12 @@ let getJSONData = function (url) {
 //Controla si el usuario tiene un username o no y lo redirecciona según donde este
 document.addEventListener("DOMContentLoaded", e => {
   if(localStorage.getItem("UserName") != null){
+    console.log(window.location.href);
+    const active = ( window.location.href.includes("cart.html") ||
+                    window.location.href.includes("my-profile")) ? "active" : "";
     document.getElementById("u_n").innerHTML = `
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="nav-link ${active} dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         ${localStorage.getItem("UserName")}</a>
         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
           <li><a class="dropdown-item" href="cart.html">Mi carrito</a></li>

@@ -31,6 +31,7 @@ function ImagesAnim(obj){
 
 function showProductInfo(obj){
 //Muestra la información del producto usando el DOM
+     //Evaluamos si la pantalla del dispositivo es un celular o no, para saber si usamos carousel o no
      if(window.innerWidth <= 767){
           imgContent = `<div id="carouselExampleControls" class="carousel slide" data-bs-interval="false" data-bs-ride="carousel">
           `
@@ -74,6 +75,7 @@ function showProductInfo(obj){
           </div>`;
      }
 
+     //Creamos la plantilla HTML
      htmlContent = `
      <div id="imagesContainer" class="col-md-6 col-sm-12">
           ${imgContent}
@@ -83,7 +85,6 @@ function showProductInfo(obj){
                <span class="">${obj.description}</span>
                <span class=" d-flex align-items-center py-2">${obj.currency}<h3 class="col">  ${obj.cost}</h3></span>
                <span class="">${obj.soldCount} vendidos hasta el momento.</span>
-
           <div id="addToCart" class="mt-2 p-3 d-flex justify-content-center align-items-center bg-success btn btn-success">
           <svg class="me-2"xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
           <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"></path>
