@@ -45,7 +45,6 @@ let getJSONData = function (url) {
 //Controla si el usuario tiene un username o no y lo redirecciona según donde este
 document.addEventListener("DOMContentLoaded", e => {
   if(localStorage.getItem("UserName") != null){
-    console.log(window.location.href);
     const active = ( window.location.href.includes("cart.html") ||
                     window.location.href.includes("my-profile")) ? "active" : "";
     document.getElementById("u_n").innerHTML = `

@@ -35,12 +35,71 @@
       </div>
     </div>
   </nav>
-  <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
-      </div>
+  <main class="container w-75">
+    <div class="row pt-5">
+      <h2 class="col">Carrito</h2>
+      <p class="col text-end m-auto">Precio unitario - Subtotal</p>
+      <hr>
     </div>
+    <div class="row" id="prodList">
+      <!-- productos -->
+    </div>
+    <form class="row needs-validation" id="delivery" novalidate>
+      <!-- info de pedido -->
+      <h2 class="row">Detalles de envió</h2>
+      <h4 class="my-3">Tipo de envió</h4>
+      <div class="mb-4">
+        <div class="form-check">
+          <input id="credit" name="deliveryMethod" type="radio" class="form-check-input" checked required>
+          <label class="form-check-label" for="credit">Premium: 2-5 días (15%)</label>
+        </div>
+        <div class="form-check">
+          <input id="debit" name="deliveryMethod" type="radio" class="form-check-input" required>
+          <label class="form-check-label" for="debit">Express: 5-8 días (7%)</label>
+        </div>
+        <div class="form-check">
+          <input id="paypal" name="deliveryMethod" type="radio" class="form-check-input" required>
+          <label class="form-check-label" for="paypal">Standard: 12-15 días (5%)</label>
+        </div>
+      </div>
+      <h4>Dirección de envió</h4>
+      <div class="row gy-3 mt-0">
+        <div class="col-md-6">
+          <label for="cc-name" class="form-label">Calle</label>
+          <input type="text" class="form-control" id="cc-name" required>
+          <div class="invalid-feedback">
+            Nombre de la calle es necesario
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <label for="cc-number" class="form-label">Numero de calle</label>
+          <input id="num" type="number" class="form-control" id="cc-number" required>
+          <div class="invalid-feedback">
+            Numero de calle es necesario
+          </div>
+        </div>
+
+        <style>
+          /* Le saca las flechitas al input numerico */
+          #num::-webkit-outer-spin-button,
+          #num::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+        </style>
+
+        <div class="col-md-6">
+          <label for="cc-expiration" class="form-label">Esquina</label>
+          <input type="text" class="form-control" id="cc-expiration" placeholder required>
+          <div class="invalid-feedback">
+            La esquina es necesaria.
+          </div>
+        </div>
+        <hr>
+      </div>
+      <button class="w-50 btn btn-success btn-lg" type="submit"><a href="#delivery" class="text-decoration-none text-light">Checkout</a></button>
+    </form>
   </main>
   <footer class="sticky-top mt-5 py-3 text-start">
     <div class="container d-flex">
