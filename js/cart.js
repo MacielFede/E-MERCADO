@@ -1,22 +1,11 @@
 const URL = CART_INFO_URL + "25801" + EXT_TYPE ;
 let products;
-let productsAdded = {
-     "user": 1,
-     "articles": [{
-          "id": 1,
-          "name": "",
-          "count": 1,
-          "unitCost": 1,
-          "currency": "",
-          "image": ""
-     }]
-}
 
 const showProducts = obj => {
 //Muestra los productos del json y los que el usuario agrego por su cuenta al mismo
      htmlContent = "";
      for (let [index, product] of obj.articles.entries()) {
-          htmlContent = `
+          htmlContent += `
           <div class="row h-25 pe-0">
                <img src="${product.image}" alt="product image" class="col w-25" >
                <div class="col d-grid h-50">
@@ -47,6 +36,18 @@ function subtotal(index){
 function deleteProd(index){
 //Elimina el producto del carrito
      products.articles.splice(index,1);
+     if(index != 0){
+          //Si el producto eliminado es un producto agregado por el usuario lo eliminamos del local storage también
+          if(JSON.parse(localStorage.getItem("cartProducts")).length == 1){
+               //Si solo hay un elemento en el carrito puesto por el usuario borro el local storage y listo
+               localStorage.removeItem("cartProducts");
+          }else{
+               prodDeleted = JSON.parse(localStorage.getItem("cartProducts"));
+               prodDeleted.splice(index-1, 1);
+               localStorage.setItem("cartProducts", JSON.stringify(prodDeleted));
+               console.log(JSON.parse(localStorage.getItem("cartProducts")));
+          }
+     }
      showProducts(products);
 }
 
@@ -55,7 +56,9 @@ document.addEventListener("DOMContentLoaded", e =>{
           if(resObj.status === "ok"){
                products = resObj.data;
                if(localStorage.getItem("cartProducts") != undefined){
-                    products.articles.push(localStorage.getItem("cartProducts"));
+                    console.log(JSON.parse(localStorage.getItem("cartProducts")));
+                    products.articles = products.articles.concat(JSON.parse(localStorage.getItem("cartProducts")));
+                    console.log(products.articles);
                }
           }
           showProducts(products);
