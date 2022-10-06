@@ -5,20 +5,23 @@ const showProducts = obj => {
 //Muestra los productos del json y los que el usuario agrego por su cuenta al mismo
      htmlContent = "";
      for (let [index, product] of obj.articles.entries()) {
-          htmlContent += `
-          <div class="row h-25 pe-0">
-               <img src="${product.image}" alt="product image" class="col w-25" >
-               <div class="col d-grid h-50">
-                    <span class="fw-bold" id="hola">${product.name}</span>
-                    <span>Cantidad: <input id="${index}" onInput="subtotal(${index})" style="width: 3rem" type="number" value="${product.count}" min="1"> </span>
-                    <a style="width: fit-content" onClick="deleteProd(${index})" href=#>Eliminar producto</a>
+          if(index > 0 && product.name == "Peugeot 208"){
+          }else{
+               htmlContent += `
+               <div class="row h-25 pe-0">
+                    <img src="${product.image}" alt="product image" class="col w-25" >
+                    <div class="col d-grid h-50">
+                         <span class="fw-bold" id="hola">${product.name}</span>
+                         <span>Cantidad: <input id="${index}" onInput="subtotal(${index})" style="width: 3rem" type="number" value="${product.count}" min="1"> </span>
+                         <a style="width: fit-content" onClick="deleteProd(${index})" href=#>Eliminar producto</a>
+                    </div>
+                    <div class="col pe-0"> 
+                         <span class="pe-0 float-end">${product.currency}${product.unitCost} - <strong id="cost-${index}">${product.currency}${product.unitCost}</strong></span>
+                    </div>
                </div>
-               <div class="col pe-0"> 
-                    <span class="pe-0 float-end">${product.currency}${product.unitCost} - <strong id="cost-${index}">${product.currency}${product.unitCost}</strong></span>
-               </div>
-          </div>
-          <hr class="mt-3">
-          `;
+               <hr class="mt-3">
+               `;
+          }
      }
      document.getElementById("prodList").innerHTML = htmlContent;
      if(products.articles.length == 0){
@@ -56,9 +59,7 @@ document.addEventListener("DOMContentLoaded", e =>{
           if(resObj.status === "ok"){
                products = resObj.data;
                if(localStorage.getItem("cartProducts") != undefined){
-                    console.log(JSON.parse(localStorage.getItem("cartProducts")));
                     products.articles = products.articles.concat(JSON.parse(localStorage.getItem("cartProducts")));
-                    console.log(products.articles);
                }
           }
           showProducts(products);
