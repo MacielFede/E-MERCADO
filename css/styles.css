@@ -188,3 +188,23 @@ a.custom-card:hover {
 .checked {
   color: orange;
 }
+
+/* Estilos para la sección de cart.html */
+
+#num::-webkit-outer-spin-button,
+#num::-webkit-inner-spin-button {
+  appearance: unset;
+  margin: 0;
+}
+
+@media (max-width: 578px) {
+  #priceTag{
+    display: none;
+  }
+  .allPrice{
+    text-align: left!important;
+  }
+  .unitPrice{
+    display: none!important;
+  }
+}

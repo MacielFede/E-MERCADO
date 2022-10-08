@@ -9,14 +9,14 @@ const showProducts = obj => {
           }else{
                htmlContent += `
                <div class="row h-25 pe-0">
-                    <img src="${product.image}" alt="product image" class="col w-25" >
-                    <div class="col d-grid h-50">
+                    <img src="${product.image}" alt="product image" class="col-md-4 col-sm-7" >
+                    <div class="col-sm-6 col-md-4 d-grid" style="height:fit-content">
                          <span class="fw-bold" id="hola">${product.name}</span>
                          <span>Cantidad: <input id="${index}" onInput="subtotal(${index})" style="width: 3rem" type="number" value="${product.count}" min="1"> </span>
                          <a style="width: fit-content" onClick="deleteProd(${index})" href=#>Eliminar producto</a>
                     </div>
-                    <div class="col pe-0"> 
-                         <span class="pe-0 float-end">${product.currency}${product.unitCost} - <strong id="cost-${index}">${product.currency}${product.unitCost}</strong></span>
+                    <div class="allPrice col pe-0 text-end">
+                         <span class="unitPrice">${product.currency}${product.unitCost} - </span><strong id="cost-${index}">${product.currency}${product.unitCost}</strong>
                     </div>
                </div>
                <hr class="mt-3">

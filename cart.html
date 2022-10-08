@@ -40,9 +40,9 @@
     </div>
   </nav>
   <main class="container w-75">
-    <div class="row pt-5">
+    <div class="row pt-3">
       <h2 class="col">Carrito</h2>
-      <p class="col text-end m-auto">Precio unitario - Subtotal</p>
+      <p id="priceTag" class="col text-end m-auto">Precio unitario - Subtotal</p>
       <hr>
     </div>
     <div class="row" id="prodList">
@@ -83,16 +83,6 @@
             Numero de calle es necesario
           </div>
         </div>
-
-        <style>
-          /* Le saca las flechitas al input numerico */
-          #num::-webkit-outer-spin-button,
-          #num::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-          }
-        </style>
-
         <div class="col-md-6">
           <label for="cc-expiration" class="form-label">Esquina</label>
           <input type="text" class="form-control" id="cc-expiration" placeholder required>
