@@ -240,9 +240,10 @@ document.addEventListener("DOMContentLoaded", function(e){
                ImagesAnim(ProdInfo.images);
           }
           showRelatedProducts();
+          console.log(localStorage.getItem("cartProducts"));
           document.getElementById("addToCart").addEventListener("click", function(){
                //Cuando se presiona el boton de agregar al carrito
-               if(localStorage.getItem("cartProducts") != undefined){
+               if(localStorage.getItem("cartProducts") != null){
                     //Si existen otros productos en el carrito
                     let cart = JSON.parse(localStorage.getItem("cartProducts"));
                     let flag = false;

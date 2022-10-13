@@ -91,7 +91,7 @@ body{
      text-decoration: none;
      color: black;
 }
-#noCommentAlert {
+#noCommentAlert, #productInCart {
      z-index: 999;
 }
 @media (max-width: 1200px){
