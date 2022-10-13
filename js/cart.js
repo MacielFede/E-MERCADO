@@ -5,8 +5,7 @@ const showProducts = obj => {
 //Muestra los productos del json y los que el usuario agrego por su cuenta al mismo
      htmlContent = "";
      for (let [index, product] of obj.articles.entries()) {
-          if(index > 0 && product.id == 50924){
-          }else{
+          if(index > 0 && product.id != 50924 || index == 0){
                htmlContent += `
                <div class="row h-25 pe-0">
                     <img src="${product.image}" alt="product image" class="col-md-4 col-sm-7" >
@@ -55,6 +54,9 @@ function deleteProd(index){
                     prodDeleted.splice(i, 1);
                     localStorage.setItem("cartProducts", JSON.stringify(prodDeleted));
                     flag = true;
+                    if(i == 0){
+                         products.articles.splice(i,1);
+                    }
                }else{
                     i++;
                }
