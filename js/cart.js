@@ -38,19 +38,13 @@ function subtotal(index){
 
 function deleteProd(index){
 //Elimina el producto del carrito
-     products.articles.splice(index,1);
-     if(index != 0){
-          //Si el producto eliminado es un producto agregado por el usuario lo eliminamos del local storage también
-          if(JSON.parse(localStorage.getItem("cartProducts")).length == 1){
-               //Si solo hay un elemento en el carrito puesto por el usuario borro el local storage y listo
-               localStorage.removeItem("cartProducts");
-          }else{
-               prodDeleted = JSON.parse(localStorage.getItem("cartProducts"));
-               prodDeleted.splice(index-1, 1);
-               localStorage.setItem("cartProducts", JSON.stringify(prodDeleted));
-               console.log(JSON.parse(localStorage.getItem("cartProducts")));
-          }
+     if(index > 0 || index == 0 && localStorage.getItem("cartProducts") != null && products.articles.length == JSON.parse(localStorage.getItem("cartProducts")).length){
+          prodDeleted = JSON.parse(localStorage.getItem("cartProducts"));
+          prodDeleted.splice(index-1, 1);
+          localStorage.setItem("cartProducts", JSON.stringify(prodDeleted));
      }
+     products.articles.splice(index,1);
+
      showProducts(products);
 }
 
