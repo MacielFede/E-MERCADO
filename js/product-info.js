@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", function(e){
                ImagesAnim(ProdInfo.images);
           }
           showRelatedProducts();
-          console.log(localStorage.getItem("cartProducts"));
+          let cart = JSON.parse(localStorage.getItem("cartProducts"));
           document.getElementById("addToCart").addEventListener("click", function(){
                //Cuando se presiona el boton de agregar al carrito
                if(localStorage.getItem("cartProducts") != null){
@@ -248,23 +248,22 @@ document.addEventListener("DOMContentLoaded", function(e){
                     let cart = JSON.parse(localStorage.getItem("cartProducts"));
                     let flag = false;
                     let i=0;
-                    while(!flag && i<cart.lenght){
+                    while(!flag && i<cart.length){
                          if(cart[i].id == ProdInfo.id){
+                              //Si ya existe el elemento en el carrito
+                              document.getElementById("productInCart").classList.remove("d-none");
+                              document.getElementById("productInCart").classList.add("d-inline");
+                              document.getElementById("addToCart").setAttribute("disabled", true);
                               flag = true;
                          }else{
                               i++;
                          }
                     }
-                    if(cart[i].id != ProdInfo.id){
+                    if(!flag){
                          itemToAdd = new toCart(ProdInfo.id, ProdInfo.name, 1, ProdInfo.cost, ProdInfo.currency, ProdInfo.images[0]);
                          cart.push(itemToAdd);
                          localStorage.setItem("cartProducts", JSON.stringify(cart));
                          window.location.href = "cart.html";
-                    }else{
-                         //Si ya existe el elemento en el carrito
-                         document.getElementById("productInCart").classList.remove("d-none");
-                         document.getElementById("productInCart").classList.add("d-inline");
-                         document.getElementById("addToCart").setAttribute("disabled", true);
                     }
                }else{
                     //si no existe otro producto en el carrito
