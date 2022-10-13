@@ -5,7 +5,7 @@ const showProducts = obj => {
 //Muestra los productos del json y los que el usuario agrego por su cuenta al mismo
      htmlContent = "";
      for (let [index, product] of obj.articles.entries()) {
-          if(index > 0 && product.name == "Peugeot 208"){
+          if(index > 0 && product.id == 50924){
           }else{
                htmlContent += `
                <div class="row h-25 pe-0">
@@ -38,10 +38,27 @@ function subtotal(index){
 
 function deleteProd(index){
 //Elimina el producto del carrito
-     if(index > 0 || index == 0 && localStorage.getItem("cartProducts") != null && products.articles.length == JSON.parse(localStorage.getItem("cartProducts")).length){
+     if(index > 0 || 
+     index == 0 && localStorage.getItem("cartProducts") != null && 
+     products.articles.length == JSON.parse(localStorage.getItem("cartProducts")).length){
           prodDeleted = JSON.parse(localStorage.getItem("cartProducts"));
           prodDeleted.splice(index-1, 1);
           localStorage.setItem("cartProducts", JSON.stringify(prodDeleted));
+     }else if(index == 0 && localStorage.getItem("cartProducts") != null && 
+     products.articles.length != JSON.parse(localStorage.getItem("cartProducts")).length &&
+     products.articles[index].id == 50924){
+          prodDeleted = JSON.parse(localStorage.getItem("cartProducts"));
+          let i = 0;
+          let flag = false;
+          while(i < prodDeleted.length && !flag){
+               if(prodDeleted[i].id == 50924){
+                    prodDeleted.splice(i, 1);
+                    localStorage.setItem("cartProducts", JSON.stringify(prodDeleted));
+                    flag = true;
+               }else{
+                    i++;
+               }
+          }
      }
      products.articles.splice(index,1);
 
