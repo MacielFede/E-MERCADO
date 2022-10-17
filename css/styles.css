@@ -191,8 +191,8 @@ a.custom-card:hover {
 
 /* Estilos para la sección de cart.html */
 
-#num::-webkit-outer-spin-button,
-#num::-webkit-inner-spin-button {
+.num::-webkit-outer-spin-button,
+.num::-webkit-inner-spin-button {
   appearance: unset;
   margin: 0;
 }

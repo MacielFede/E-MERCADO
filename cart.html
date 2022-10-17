@@ -54,20 +54,20 @@
       <h4 class="my-3">Tipo de envió</h4>
       <div class="mb-4">
         <div class="form-check">
-          <input id="credit" name="deliveryMethod" type="radio" class="form-check-input" checked required>
-          <label class="form-check-label" for="credit">Premium: 2-5 días (15%)</label>
+          <input id="premium" name="deliveryMethod" type="radio" class="form-check-input" checked required>
+          <label class="form-check-label" for="premium">Premium: 2-5 días (15%)</label>
         </div>
         <div class="form-check">
-          <input id="debit" name="deliveryMethod" type="radio" class="form-check-input" required>
-          <label class="form-check-label" for="debit">Express: 5-8 días (7%)</label>
+          <input id="express" name="deliveryMethod" type="radio" class="form-check-input" required>
+          <label class="form-check-label" for="express">Express: 5-8 días (7%)</label>
         </div>
         <div class="form-check">
-          <input id="paypal" name="deliveryMethod" type="radio" class="form-check-input" required>
-          <label class="form-check-label" for="paypal">Standard: 12-15 días (5%)</label>
+          <input id="standard" name="deliveryMethod" type="radio" class="form-check-input" required>
+          <label class="form-check-label" for="standard">Standard: 12-15 días (5%)</label>
         </div>
       </div>
       <h4>Dirección de envió</h4>
-      <div class="row gy-3 mt-0">
+      <section class="row gy-3 mt-0">
         <div class="col-md-6">
           <label for="cc-name" class="form-label">Calle</label>
           <input type="text" class="form-control" id="cc-name" required>
@@ -75,24 +75,51 @@
             Nombre de la calle es necesario
           </div>
         </div>
-
         <div class="col-md-3">
           <label for="cc-number" class="form-label">Numero de calle</label>
-          <input id="num" type="number" class="form-control" id="cc-number" required>
+          <input type="number" class="num form-control" id="cc-number" required>
           <div class="invalid-feedback">
             Numero de calle es necesario
           </div>
         </div>
         <div class="col-md-6">
           <label for="cc-expiration" class="form-label">Esquina</label>
-          <input type="text" class="form-control" id="cc-expiration" placeholder required>
+          <input type="text" class="form-control" id="cc-corner" placeholder required>
           <div class="invalid-feedback">
             La esquina de su dirección es necesaria.
           </div>
         </div>
         <hr>
-      </div>
-      <button class="w-50 btn btn-success btn-lg" type="submit"><a href="#delivery" class="text-decoration-none text-light">Checkout</a></button>
+      </section>
+      <h2>Costos</h2>
+      <section class="row gy-2 mt-0">
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Subtotal</h6>
+              <small class="text-muted">Suma de todos los productos</small>
+            </div>
+            <span class="text-muted" id="costText">-</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between lh-condensed">
+            <div>
+              <h6 class="my-0">Porcentaje</h6>
+              <small class="text-muted">Según el tipo de envió</small>
+            </div>
+            <span class="text-muted" id="taxText">-</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Total (USD)</span>
+            <strong id="totalCostText">-</strong>
+          </li>
+        </ul>
+        <hr>
+      </section>
+      <h2>Forma de pago</h2>
+      <section class="row gy-2 mt-0">
+        <p><a href="" data-bs-toggle="modal" data-bs-target="#paymentModal">Seleccionar forma de pago</a></p>
+      </section>
+      <button class="w-50 btn btn-outline-success btn-lg" type="submit">Finalizar compra</button>
     </form>
   </main>
   <footer class="sticky-top mt-5 py-3 text-start">
@@ -107,6 +134,67 @@
       </div>
     </div>
   </footer>
+
+  <div class="modal fade" tabindex="-1" role="dialog" id="paymentModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Forma de pago</h5>
+        </div>
+        <div class="modal-body">
+          <div class="form needs-validation">
+            <div class="row">
+              <div class="form-check">
+                <input id="credit" name="creditMethod" type="radio" class="form-check-input" checked required>
+                <label class="form-check-label" for="paypal">Tarjeta de crédito</label>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <label for="cc-number" class="form-label">Numero de tarjeta</label>
+                  <input type="number" class="num form-control" id="cc-number" required>
+                  <div class="invalid-feedback">
+                    Numero de tarjeta es necesario
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="cc-number" class="form-label">Código de seguridad</label>
+                  <input type="number" class="num form-control" id="cc-number" required>
+                  <div class="invalid-feedback">
+                    Código de seguridad es necesario
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <label for="cc-number" class="form-label">Vencimiento(MM/AA)</label>
+                  <input class="form-control" name="expiry" type="month" required/>
+                  <div class="invalid-feedback">
+                    Vencimiento es necesario
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="form-check">
+                <input id="transfer" name="transferMethod" type="radio" class="form-check-input" required>
+                <label class="form-check-label" for="paypal">Transferencia bancaria</label>
+              </div>
+              <div class="mt-3">
+                <label for="cc-number" class="form-label">Numero de cuenta</label>
+                <input type="number" class="num form-control" id="cc-number" required>
+                <div class="invalid-feedback">
+                  Numero de cuenta bancaria es necesario
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>
