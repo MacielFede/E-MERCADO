@@ -116,10 +116,23 @@
         <hr>
       </section>
       <h2>Forma de pago</h2>
-      <section class="row gy-2 mt-0">
-        <p><a href="" data-bs-toggle="modal" data-bs-target="#paymentModal">Seleccionar forma de pago</a></p>
+      <section class="row gy-2 mt-0 mb-3">
+        <p id="payment" class="mb-0"><a href="" data-bs-toggle="modal" data-bs-target="#paymentModal">Seleccionar forma de pago</a></p>
+        <div class="invalid-feedback" id="selectPayment">
+          Debes seleccionar una forma de pago.
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+        </svg></div>
+        <div class="invalid-feedback" id="givePaymentInfo">
+          Falta información.
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+          <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+        </svg></div>
       </section>
-      <button class="w-50 btn btn-outline-success btn-lg" type="submit">Finalizar compra</button>
+      
+      <button class="w-50 btn btn-success btn-lg" type="submit">Finalizar compra</button>
     </form>
   </main>
   <footer class="sticky-top mt-5 py-3 text-start">
@@ -142,30 +155,29 @@
           <h5 class="modal-title">Forma de pago</h5>
         </div>
         <div class="modal-body">
-          <div class="form needs-validation">
-            <div class="row">
-              <div class="form-check">
-                <input id="credit" name="creditMethod" type="radio" class="form-check-input" checked required>
-                <label class="form-check-label" for="paypal">Tarjeta de crédito</label>
+            <div class="row ms-3">
+              <div class="">
+                <input id="credit" name="creditMethod" type="radio" class="form-check-input">
+                <label class="form-check-label" for="credit">Tarjeta de crédito</label>
               </div>
-              <div class="row mt-4">
+              <div class="row mt-3" id="CardInfo">
                 <div class="col-md-6">
-                  <label for="cc-number" class="form-label">Numero de tarjeta</label>
-                  <input type="number" class="num form-control" id="cc-number" required>
+                  <label for="ccNumber" class="form-label">Numero de tarjeta</label>
+                  <input type="number" class="num form-control" id="ccNumber" disabled>
                   <div class="invalid-feedback">
                     Numero de tarjeta es necesario
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <label for="cc-number" class="form-label">Código de seguridad</label>
-                  <input type="number" class="num form-control" id="cc-number" required>
+                  <label for="ccSecurity" class="form-label">Código de seguridad</label>
+                  <input type="number" class="num form-control" id="ccSecurity" disabled>
                   <div class="invalid-feedback">
                     Código de seguridad es necesario
                   </div>
                 </div>
                 <div class="col-md-8">
-                  <label for="cc-number" class="form-label">Vencimiento(MM/AA)</label>
-                  <input class="form-control" name="expiry" type="month" required/>
+                  <label for="ccExpiry" class="form-label">Vencimiento(MM/AA)</label>
+                  <input class="form-control" id="ccExpiry" type="month" disabled/>
                   <div class="invalid-feedback">
                     Vencimiento es necesario
                   </div>
@@ -173,23 +185,22 @@
               </div>
             </div>
             <hr>
-            <div class="row">
-              <div class="form-check">
-                <input id="transfer" name="transferMethod" type="radio" class="form-check-input" required>
-                <label class="form-check-label" for="paypal">Transferencia bancaria</label>
+            <div class="row ms-3">
+              <div class="">
+                <input id="transfer" name="transferMethod" type="radio" class="form-check-input">
+                <label class="form-check-label" for="transfer">Transferencia bancaria</label>
               </div>
-              <div class="mt-3">
-                <label for="cc-number" class="form-label">Numero de cuenta</label>
-                <input type="number" class="num form-control" id="cc-number" required>
+              <div class="mt-3 paymentSelection" id="bankAccount">
+                <label for="bankNumber" class="form-label">Numero de cuenta</label>
+                <input type="number" class="num form-control" id="bankNumber" disabled>
                 <div class="invalid-feedback">
                   Numero de cuenta bancaria es necesario
                 </div>
               </div>
             </div>
-          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="hola()">Cerrar</button>
         </div>
       </div>
     </div>
