@@ -239,7 +239,12 @@ document.addEventListener("DOMContentLoaded", () =>{
                event.preventDefault();
                event.stopPropagation();
           }else{
-               alert("compraste pa");
+               event.preventDefault();
+               switchClasses("d-block", "d-none", "purchaseCompleted");
+               localStorage.setItem("previusPurchases", JSON.stringify(products.articles));
+               localStorage.removeItem("cartProducts");
+               products.articles = [];
+               showProducts(products);
           }
           this.classList.add('was-validated')
      }, false);
