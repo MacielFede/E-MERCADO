@@ -38,11 +38,69 @@ const switchClasses = (classToAdd, classToDelete, elementId)=>{
 
 
 const showProducts = obj => {
-//Muestra los productos del json y los que el usuario agrego por su cuenta al mismo
+//Muestra los productos del json y los que el usuario agrego por su cuenta al mismo o la ultima compra del usuario
      htmlContent = "";
      total = 0;
      if(products.articles.length == 0){
-          document.getElementById("delivery").innerHTML = "<strong>Esto esta vació!</strong>"
+          if(localStorage.getItem("previusPurchases") != null){
+               let previusPurchase = JSON.parse(localStorage.getItem("previusPurchases"));
+               USDtoday = localStorage.getItem("previusUSD");
+               taxes = localStorage.getItem("previusTaxes");
+               //Me traigo todos los valores de la ultima compra del usuario
+               //Si estos no existen(porque no realizo compras previas) simplemente se le muestra 0 en el total, esto se debe a que JS cambia NULL por 0
+               for (let [index, product] of previusPurchase.entries()) {
+                    if(index > 0 && product.id != 50924 || index == 0){
+                         //Esta validacion es usada para saber si el usuario compro el auto peugot 208 (2 veces)
+                         htmlContent += `
+                         <div class="row h-25 pe-0">
+                              <img src="${product.image}" alt="product image" class="col-md-4 col-sm-7" >
+                              <div class="col-sm-6 col-md-4 d-grid" style="height:fit-content">
+                                   <span class="fw-bold">${product.name}</span>
+                                   <span>Cantidad: ${product.count} </span>
+                              </div>
+                              <div class="allPrice col pe-0 text-end">
+                                   <span class="unitPrice">${product.currency}${product.unitCost} - </span><strong>${product.currency}${(product.unitCost * product.count)}</strong>
+                              </div>
+                         </div>
+                         <hr class="mt-3">
+                         `;
+                         //Hago las sumatorias dentro del if, ya que si el usuario agrega el peugot 208 va a sumar 2 veces
+                         if(product.currency === "USD"){
+                              total += product.count * product.unitCost;
+                         }else{
+                              total += Math.round(product.count * (product.unitCost / USDtoday));
+                         }
+                    }
+               }
+          }
+          document.getElementById("prodList").innerHTML = "";
+          //Limpio la lista de productos para que no me apoarezcan 2 listas iguales
+          document.getElementById("delivery").innerHTML = `<strong>Esto esta vació!</strong> 
+          <p>Tu ultima compra: </p>
+          ${htmlContent}
+          <section class="row gy-2 mt-0">
+               <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                         <div>
+                              <h6 class="my-0">Subtotal</h6>
+                              <small class="text-muted">Suma de todos los productos</small>
+                         </div>
+                         <span class="text-muted">USD${total.toLocaleString('en-US')}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                         <div>
+                              <h6 class="my-0">Porcentaje</h6>
+                              <small class="text-muted">Según el tipo de envió</small>
+                         </div>
+                         <span class="text-muted" >USD${Math.round(total*taxes).toLocaleString('en-US')}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                         <span>Total (USD)</span>
+                         <strong>USD${Math.round((total*taxes) + total).toLocaleString('en-US')}</strong>
+                    </li>
+               </ul>
+               <hr>
+          </section>`;
      }else{
           for (let [index, product] of obj.articles.entries()) {
                if(index > 0 && product.id != 50924 || index == 0){
@@ -54,6 +112,7 @@ const showProducts = obj => {
                               <span class="fw-bold" id="hola">${product.name}</span>
                               <span>Cantidad: <input id="i${index}" onkeydown="return false" onInput="subtotal(${index})" style="width: 3rem" type="number" value="${product.count}" min="1"> </span>
                               <a style="width: fit-content" onClick="deleteProd(${index})" href=#>Eliminar producto</a>
+                              <div id="quantityFeedback${index}" class="invalid-feedback">No puedes dejar la cantidad en un numero menor o igual a 0</div>
                          </div>
                          <div class="allPrice col pe-0 text-end">
                               <span class="unitPrice">${product.currency}${product.unitCost} - </span><strong id="cost-${index}">${product.currency}${(product.unitCost * product.count)}</strong>
@@ -61,6 +120,7 @@ const showProducts = obj => {
                     </div>
                     <hr class="mt-3">
                     `;
+                    //Hago las sumatorias dentro del if, ya que si el usuario agrega el peugot 208 va a sumar 2 veces
                     if(product.currency === "USD"){
                          total += product.count * product.unitCost;
                     }else{
@@ -69,8 +129,8 @@ const showProducts = obj => {
                }
           }
           updateCosts();
+          document.getElementById("prodList").innerHTML = htmlContent;
      }
-     document.getElementById("prodList").innerHTML = htmlContent;
 }
 
 function subtotal(index){
@@ -174,6 +234,20 @@ function paymentValidityInfo(){
      }
 }
 
+function quantityValidity(iter){
+     //Itera entre todos los input de las cantidades de los productos del carrito para saber si alguno tiene cero
+     //Pre: la primer llamada debe ser con iter=0
+     if(document.getElementById(`i${iter}`) == null){
+          return true;
+     }else if(document.getElementById(`i${iter}`).value <=0){
+          document.getElementById(`i${iter}`).classList.add("is-invalid");
+          switchClasses("d-block", "d-none", `quantityFeedback${iter}`)
+          return false;
+     }else{
+          return quantityValidity(iter+1);
+     } 
+}
+
 document.addEventListener("DOMContentLoaded", () =>{
      myFunction().then(() =>{
           getJSONData(URL).then(function(resObj){
@@ -233,15 +307,15 @@ document.addEventListener("DOMContentLoaded", () =>{
      });
 
      document.getElementById("delivery").addEventListener('submit', function (event) {
-          console.log(!paymentValidity());
-          console.log(!this.checkValidity());
-          if (!paymentValidity() || !this.checkValidity()) {
+          if (!quantityValidity(0) || !paymentValidity() || !this.checkValidity()) {
                event.preventDefault();
                event.stopPropagation();
           }else{
                event.preventDefault();
                switchClasses("d-block", "d-none", "purchaseCompleted");
                localStorage.setItem("previusPurchases", JSON.stringify(products.articles));
+               localStorage.setItem("previusTaxes", taxes);
+               localStorage.setItem("previusUSD", USDtoday);
                localStorage.removeItem("cartProducts");
                products.articles = [];
                showProducts(products);
