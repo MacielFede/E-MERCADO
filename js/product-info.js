@@ -261,7 +261,11 @@ document.addEventListener("DOMContentLoaded", function(e){
                     }
                     if(!flag){
                          itemToAdd = new toCart(ProdInfo.id, ProdInfo.name, 1, ProdInfo.cost, ProdInfo.currency, ProdInfo.images[0]);
-                         cart.push(itemToAdd);
+                         if(itemToAdd.id ==50924){
+                              cart.unshift(itemToAdd);
+                         }else{
+                              cart.push(itemToAdd);
+                         }
                          localStorage.setItem("cartProducts", JSON.stringify(cart));
                          window.location.href = "cart.html";
                     }

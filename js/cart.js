@@ -136,7 +136,13 @@ const showProducts = obj => {
 function subtotal(index){
 //Actualiza el subtotal del producto donde cambia la cantidad y reimprime el arreglo
      products.articles[index].count = document.getElementById(`i${index}`).value;
-     localStorage.setItem("cartProducts", JSON.stringify(products.articles));
+     let cartInLS = JSON.parse(localStorage.getItem("cartProducts"));
+     if(cartInLS[index-1] != undefined && products.articles[index].name == cartInLS[index-1].name){
+          cartInLS[index-1].count = products.articles[index].count;
+     }else if(cartInLS == null || (cartInLS[index] != undefined && products.articles[index].name == cartInLS[index].name)){
+          cartInLS[index].count = products.articles[index].count;
+     }
+     localStorage.setItem("cartProducts", JSON.stringify(cartInLS));
      showProducts(products);
 }
 
