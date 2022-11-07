@@ -30,12 +30,6 @@ async function myFunction () {
      }
 }
 
-const switchClasses = (classToAdd, classToDelete, elementId)=>{
-     //Dado un elemento, agrega una clase y elimina otra clase.
-     document.getElementById(elementId).classList.add(classToAdd);
-     document.getElementById(elementId).classList.remove(classToDelete);
-}
-
 
 const showProducts = obj => {
 //Muestra los productos del json y los que el usuario agrego por su cuenta al mismo o la ultima compra del usuario

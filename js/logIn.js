@@ -33,6 +33,9 @@ function submitLogIn(){
      if (email != "" &&  password != "" ){
      //Usamos esto para ir al inicio permitiendo volver a la pagina de login y probarla a fondo
           localStorage.setItem("UserName", email);
+          if(localStorage.getItem("imgSRC") == null){
+               localStorage.setItem("imgSRC", "img/img_perfil.png");
+          }
           location.href = "index.html";
      }else{
           if(email == ""){

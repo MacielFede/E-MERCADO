@@ -27,6 +27,10 @@
 </head>
 
 <body>
+  <script>if(localStorage.getItem("UserName") == undefined){
+    window.location.href = "logIn.html"
+  }
+  </script>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-1">
     <div class="container">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -50,12 +54,53 @@
       </div>
     </div>
   </nav>
-  <main>
-    <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+  <main class="w-75 container">
+    <h2 class="mt-3">Tu información</h2> 
+    <hr>
+    <form novalidate class="row needs-validation">
+      <div class="mb-3 col-4">
+        <label for="firstname1" class="form-label">Primer nombre*</label>
+        <input type="text" class="form-control" id="firstname1" required>
+        <div class="invalid-feedback">
+          Debes indicar tu nombre.
+        </div>
       </div>
-    </div>
+      <div class="mb-3 col-4">
+        <label for="lastname1" class="form-label">Primer apellido*</label>
+        <input type="text" class="form-control" id="lastname1" required>
+        <div class="invalid-feedback">
+          Debes indicar tu apellido.
+        </div>
+      </div>
+      <div class="mb-3 col-4">
+        <label for="emailAdress" class="form-label">Dirección de correo electrónico*</label>
+        <input type="email" class="form-control" id="emailAdress" required>
+        <div class="invalid-feedback">
+          Debes tener un email asociado.
+        </div>
+      </div>
+      <div class="mb-3 col-4">
+        <label for="firstname2" class="form-label">Segundo nombre</label>
+        <input type="text" class="form-control" id="firstname2">
+      </div>
+      <div class="mb-3 col-4">
+        <label for="lastname2" class="form-label">Segundo apellido</label>
+        <input type="text" class="form-control" id="lastname2">
+      </div>
+      <div class="mb-3 col-4">
+        <label for="contactNumber" class="form-label">Numero de contacto</label>
+        <input type="number" class="form-control num" id="contactNumber">
+      </div>
+      <div class="mb-3 col-4">
+        <label for="formFile" class="form-label">Imagen de perfil</label>
+        <input class="form-control" type="file" accept="image/*" id="formFile">
+        <div class="invalid-feedback">
+          La imagen debe de pesar menos de 2.5mB.
+        </div>
+      </div>
+      <hr>
+      <button type="submit" class="btn btn-outline-primary my-3 col-4">Guardar cambios</button>
+    </form>
   </main>
   <footer class="sticky-top mt-5 py-3 text-start">
     <div class="container d-flex">
