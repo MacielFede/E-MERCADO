@@ -20,26 +20,25 @@
   <link href="https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
-  <link href="css/login.css" rel="stylesheet">
 </head>
 
-<body>
+<body style="background-color: #f8f9fa; text-align: center;">
   <main class="text-center">
-    <img src="img/login.png" alt="E-COMMERCIO LOGO">
+    <img src="img/login.png" alt="E-COMMERCIO LOGO" style="height: 10rem;">
     <h2 class="h3 mb-3 fw-normal">Bienvenido de nuevo.</h2>
     <h2 class="h3 mb-3 fw-normal">Inicie sesión:</h2>
-    <div id="info" class="w-25 d-grid">
+    <div id="formLogIn" class="w-25 d-grid">
       <div class="form-floating">
         <input class="form-control" id="email" placeholder="e@mercado.com" type="email">
         <label for="email">Correo electrónico</label>
       </div>
-      <div id="err1">Debe ingresar un email valido</div>
+      <div id="err1" class="errores">Debe ingresar un email valido</div>
       <div class="form-floating">
         <input type="password" class="form-control" id="passw" placeholder="Contraseña">
         <label for="passw">Contraseña</label>
       </div>
-      <div id="err2">Debe ingresar su contraseña</div>
-      <input type="submit" value="Iniciar sesión" id="enter">
+      <div id="err2" class="errores">Debe ingresar su contraseña</div>
+      <input type="submit" value="Iniciar sesión" class="an1 enviar" id="enter">
       <p>o inicie sesión con:</p>
       <div class="d-flex justify-content-center">
         <div class="g-signin2 " data-onsuccess="onSignIn"></div>

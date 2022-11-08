@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
       prod = resObj.data;
       showProducts(prod.products);
       //Portadilla que cambia según la categoría, como solo necesito que se haga una vez lo dejo aquí
-      document.getElementById("btnGroupAddon").innerHTML = `${prod.products[1].currency}`
+      document.getElementById("btnGroupAddon").innerHTML = `${prod.products[0].currency}`
       document.getElementById("port").innerHTML=`${prod.catName}`;
       document.getElementById("intro").innerHTML=`Encuentre los mejores precios en la categoría ${prod.catName} del mercado.`;
     }

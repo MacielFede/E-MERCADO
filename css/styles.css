@@ -2,7 +2,7 @@
 .card-body,
 .container,
 .site-header {
-  font-family: 'Raleway', serif !important;
+  font-family: "Raleway", serif !important;
 }
 
 .jumbotron .display-4 {
@@ -21,18 +21,18 @@ nav a {
   -ms-user-select: none;
   user-select: none;
 }
-@media (max-width: 500px){
-  #min{
+@media (max-width: 500px) {
+  #min {
     padding: 0px;
   }
-  #max{
+  #max {
     padding: 0px;
   }
-  #filtrado{
+  #filtrado {
     padding-left: 10rem;
     width: 41.66666667%;
   }
-} 
+}
 
 @media (min-width: 768px) {
   .bd-placeholder-img-lg {
@@ -44,8 +44,8 @@ nav a {
   height: 50vh;
   padding: 5em inherit;
   margin-bottom: 0;
-  background-color: #53C0FB;
-  background: url('../img/cover_back.png');
+  background-color: #53c0fb;
+  background: url("../img/cover_back.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -53,8 +53,8 @@ nav a {
   font-weight: bold;
 }
 
-@media(max-width: 768px){
-  .jumbotron{
+@media (max-width: 768px) {
+  .jumbotron {
     background-size: contain;
     height: 200px;
     width: 100%;
@@ -89,12 +89,12 @@ nav a {
 }
 
 footer p {
-  margin-bottom: .25rem;
+  margin-bottom: 0.25rem;
 }
 
 .site-header a {
   color: white;
-  transition: ease-in-out color .15s;
+  transition: ease-in-out color 0.15s;
 }
 
 .site-header .dropdown-menu a {
@@ -102,7 +102,7 @@ footer p {
 }
 
 .dropzone {
-  border: 2px dashed #0087F7;
+  border: 2px dashed #0087f7;
   border-radius: 5px;
   background: white;
 }
@@ -198,6 +198,252 @@ a.custom-card:hover {
   color: orange;
 }
 
+/* Estilos para botones */
+.an1 {
+  padding: 0.5rem 0.5rem;
+  background-color: transparent;
+  font-weight: semibold;
+  color: #444;
+  font-size: 1rem;
+  border: 2px solid #eee;
+  border-radius: 0.5rem;
+  transition: all 0.5s ease;
+}
+.an1:hover {
+  box-shadow: 0.5rem 0.5rem 1rem #fff, -0.5rem -0.5rem 1rem #ccc;
+}
+.an1:active {
+  box-shadow: inset 0.2rem 0.2rem 1rem #ccc, inset -0.2rem -0.2rem 1rem #fff;
+
+}
+/* Estilo para botones grandes */
+.enviar {
+  margin: 20px 0 20px 0;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+}
+
+/* Estilo de feedback en formularios */
+.errores {
+  display: none;
+  color: red;
+  font-size: small;
+  font-weight: bold;
+}
+.shake {
+  animation: shake 0.3s;
+}
+@keyframes shake {
+  25% {
+    transform: translateX(4px);
+  }
+  50% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+/* Estilos para seccion de logIn.html */
+
+#formLogIn {
+  min-width: fit-content;
+  margin: auto;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+/* Estilos para la seccion products.html */
+
+.product {
+  border-radius: 1rem;
+  border-color: #ccc;
+  border-style: solid;
+  border-width: 0.01rem;
+}
+.product .img-container {
+  overflow: hidden;
+  position: relative;
+}
+.product .img-container .price {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: white;
+  padding: 15px;
+  color: black;
+  max-width: fit-content;
+  border-radius: 1rem;
+}
+.product .text {
+  border: 0rem;
+  color: black;
+}
+.product a {
+  display: inline-block;
+  margin-top: 2px;
+  text-decoration: none;
+  color: white;
+  padding: 15px;
+}
+.product:hover {
+  background-color: #eaeded;
+}
+#prod_filters {
+  height: fit-content;
+}
+.input-wrapper {
+  border-radius: 0.5rem;
+  background-color: #ffff;
+  width: 60%;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+.input-wrapper input {
+  background-color: #ffff;
+  border: none;
+  outline: none;
+  margin: 0 0.5rem;
+  width: 100%;
+}
+@media (max-width: 991px) {
+  #prod_filters {
+    width: 71% !important;
+  }
+  #product_container {
+    width: fit-content !important;
+  }
+  .product {
+    float: left;
+  }
+  #main {
+    gap: 1rem !important;
+  }
+}
+@media (max-width: 570px) {
+  .product .img-container .price {
+    padding: 5px !important;
+    border-radius: 0.5rem !important;
+  }
+  .product {
+    width: 100% !important;
+  }
+  #prod_filters {
+    width: 91% !important;
+  }
+}
+
+/* Estilos para la seccion product-info.html */
+#com {
+  resize: none;
+}
+.container {
+  grid-template-columns: 1fr 1fr;
+}
+#Info {
+  height: fit-content;
+}
+.smallImg img {
+  display: inline-block;
+  height: 80px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.smallImg img:hover {
+  border: 2px solid red;
+}
+#comentario {
+  display: grid;
+  box-sizing: border-box;
+  box-shadow: 0.5rem 0.5rem 1rem #ccc;
+}
+.title {
+  width: fit-content;
+  height: fit-content;
+}
+#ProdDescription {
+  box-sizing: border-box;
+}
+.productRelated {
+  margin-bottom: 2rem;
+  width: 75%;
+  border-radius: 1rem;
+  border-color: #ccc;
+  border-style: solid;
+  border-width: 0.01rem;
+}
+.productRelated .img-container {
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  margin-top: 2px;
+  text-decoration: none;
+  color: white;
+  padding: 15px;
+}
+.productRelated .img-container img {
+  width: 100%;
+  display: block;
+}
+.productRelated:hover {
+  background-color: #eaeded;
+  cursor: pointer;
+}
+#relatedProd h3 {
+  font-size: 1.5rem;
+}
+#category {
+  text-decoration: none;
+  color: black;
+}
+#noCommentAlert,
+#productInCart {
+  z-index: 999;
+}
+
+#enviarCom,
+#eliminarCom {
+  margin: 20px 0 20px 0;
+  padding: 1rem 1rem;
+}
+
+@media (max-width: 1200px) {
+  #ogImg,
+  .smallImg {
+    width: 100% !important;
+  }
+}
+@media (min-width: 1200px) {
+  #comentario {
+    width: 75% !important;
+  }
+  #uc {
+    width: 75% !important;
+  }
+}
+@media (min-width: 991px) {
+  #addToCart {
+    width: 50%;
+  }
+}
+@media (min-width: 770px) and (max-width: 991px) {
+  .productRelated {
+    width: 100%;
+  }
+}
+@media (max-width: 680px) {
+  #noCommentAlert {
+    width: 80%;
+  }
+}
+
 /* Estilos para la sección de cart.html */
 
 .num::-webkit-outer-spin-button,
@@ -207,13 +453,16 @@ a.custom-card:hover {
 }
 
 @media (max-width: 578px) {
-  #priceTag{
+  #finalizarCompra {
+    width: 100% !important;
+  }
+  #priceTag {
     display: none;
   }
-  .allPrice{
-    text-align: left!important;
+  .allPrice {
+    text-align: left !important;
   }
-  .unitPrice{
-    display: none!important;
+  .unitPrice {
+    display: none !important;
   }
 }

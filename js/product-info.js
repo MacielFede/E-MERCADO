@@ -126,7 +126,7 @@ function ShowProductComments(obj){
 function showUserCommOption(){
 //Muestra el formulario para ingresar el comentario. Lo hago asi porque tendría un problema de formato si no.
      htmlContent = `
-     <div id="tuComentario" class="mb-5">
+     <div id="tuComentario">
           <h2 class="title fs-3">Escribe tu opinión</h2>
           <div id="uc" class="mb-1 w-100">
                <label for="exampleFormControlTextarea1" class="form-label">Tu comentario:</label>
@@ -136,7 +136,7 @@ function showUserCommOption(){
                     <span>/ 200</span>
                </div>     
           </div>
-          <div id="err1">Es necesario ingresar un comentario.</div>
+          <div id="err1" class="errores shake">Es necesario ingresar un comentario.</div>
           <select id="punt" class="form-select w-50" aria-label="Default select example" >
                <option selected hidden value="0">Tu puntuación</option>
                <option value="1">1</option>
@@ -145,10 +145,10 @@ function showUserCommOption(){
                <option value="4">4</option>
                <option value="5">5</option>
           </select>
-          <div id="err2">Es necesario poner una calificación.</div>
+          <div id="err2" class="errores shake">Es necesario poner una calificación.</div>
           <div class="col-12">
-               <button id="enviarCom" class="btn btn-primary mt-3" type="submit">Enviar opinión</button>
-               <button id="eliminarCom" class="btn btn-outline-danger mt-3 ms-3 pt-3 pb-3" type="submit">Eliminar opinión</button>
+               <button id="enviarCom" class="an1 enviar" type="submit">Enviar opinión</button>
+               <button id="eliminarCom" class=" btn-outline-danger enviar an1" type="submit">Eliminar opinión</button>
           </div>
      </div>
      `;
@@ -205,7 +205,7 @@ function sendUserComment(){
 function showRelatedProducts(){
      for(let related of ProdInfo.relatedProducts){
           htmlContent = `
-          <div onclick="setProdID(${related.id})" class="product mb-2">
+          <div onclick="setProdID(${related.id})" class="productRelated mb-2">
                <div class="img-container">
                     <img src=${related.image} alt="${related.name}" >
                </div>
