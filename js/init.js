@@ -46,14 +46,16 @@ let getJSONData = function (url) {
      });
 };
 
-//Controla si el usuario tiene un username o no y lo redirecciona según donde este
-document.addEventListener("DOMContentLoaded", (e) => {
+document.addEventListener("DOMContentLoaded", () => {
+     //Controla si el usuario tiene un username o no y lo redirecciona según donde este
 	let imgSRC;
 	if (localStorage.getItem("UserName") != null) {
           const active = window.location.href.includes("cart.html") || window.location.href.includes("my-profile") ? "active" : "";
-          if (localStorage.getItem(`${localStorage.getItem("UserName")}Info`) != undefined && localStorage.getItem(`${localStorage.getItem("UserName")}Info`)) {
+          if (localStorage.getItem(`${localStorage.getItem("UserName")}Info`) != undefined) {
+               //Si el usuario ya modifico su información de perfil busco su imagen
                let imagen = JSON.parse(localStorage.getItem(`${localStorage.getItem("UserName")}Info`));
                if(imagen.image != ""){
+                    //Debo decodificar la imagen ya que viene en código binario
                     imgSRC = "data:image/jpeg;base64," + btoa(imagen.image);
                }
                else{
@@ -62,7 +64,7 @@ document.addEventListener("DOMContentLoaded", (e) => {
           } else{
                imgSRC = "img/img_perfil.png";
           }
-          document.getElementById("u_n").innerHTML = `
+          document.getElementById("UserN").innerHTML = `
                <li class="nav-item dropdown">
                <img src=${imgSRC} class="img-thumbnail float-start me-3" alt="userImage" style="width: 40px; height: 40px;">
                <a class="nav-link ${active} dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -75,12 +77,12 @@ document.addEventListener("DOMContentLoaded", (e) => {
                </li>
           `;
 
-          document.getElementById("logOut").addEventListener("click", (e) => {
+          document.getElementById("logOut").addEventListener("click", () => {
                localStorage.removeItem("UserName");
                window.location.href = "logIn.html";
           });
 	} else {
-          document.getElementById("u_n").innerHTML = `<a class="nav-link" href="logIn.html">Iniciar sesión</a>
+          document.getElementById("UserN").innerHTML = `<a class="nav-link" href="logIn.html">Iniciar sesión</a>
 	`;
 	}
 });

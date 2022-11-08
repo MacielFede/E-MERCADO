@@ -1,6 +1,9 @@
 body{
-    font-family: 'Raleway', serif;
-    text-align: center;
+  font-family: 'Raleway', serif;
+}
+
+main{
+  text-align: center;
 }
 
 .product{

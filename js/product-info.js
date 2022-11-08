@@ -4,7 +4,7 @@ let ProdInfo = [];
 let ProdComments = [];
 let imgContent = ""
 let htmlContent = "";
-//Este arreglo esta creado ya que no me dejaba iterar con una HTMLCollection
+//Este arreglo esta creado ya que no me dejaba iterar con una HTMLCollection, es usado para la animación de las imágenes en pantallas grandes
 let smallImages = [];
 //Dejamos definido el objeto del comentario del usuario
 let userComment = {
@@ -33,7 +33,7 @@ function ImagesAnim(obj){
      smallImages[i] = document.getElementById(`smImg${i}`);
      });
      for(let i=0;i<smallImages.length;i++){
-          smallImages[i].addEventListener("mouseover", function(e){
+          smallImages[i].addEventListener("mouseover", function(){
                //Lo que hacemos es cambiar la referencia de la imagen original
                document.getElementById("ogImg").src = smallImages[i].src;
           });
@@ -61,17 +61,6 @@ function showProductInfo(obj){
                     </div>`;
                }
           });
-          imgContent +=`
-               </div>
-               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-               </button>
-               <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-               </button>
-          </div>`
      }else{
           imgContent = `
           <img src="${obj.images[0]}" id="ogImg" class="w-75">
@@ -169,43 +158,48 @@ function showUserCommOption(){
           document.getElementById("punt").setAttribute("disabled", true);
           document.getElementById("enviarCom").setAttribute("disabled", true);
           document.getElementById("eliminarCom").setAttribute("disabled", true);
+     }else if(localStorage.getItem(`${userComment.product}`+"Comments") != null){
+          document.getElementById("enviarCom").dataset.bsTarget = "#staticBackdrop";
+          document.getElementById("enviarCom").dataset.bsToggle = "modal";
+          document.getElementById("eliminarCom").dataset.bsTarget = "#deleteCommModal";
+          document.getElementById("eliminarCom").dataset.bsToggle = "modal";
      }
 }
 
-function sendUserComment(obj){
+function sendUserComment(){
 //Maneja la interacción con el botón de enviar comentario
-          let com = document.getElementById("com").value;
-          let punt = document.getElementById("punt").selectedIndex;
-          if( com == ""  || punt == ""){
-               if(( com == "") && ( punt == "")){
-                    document.getElementById("err1").style.display="block";
-                    document.getElementById("com").style.borderColor="red";
-                    document.getElementById("err2").style.display="block";
-                    document.getElementById("punt").style.borderColor="red";
-               }else if(com == ""){
-                    document.getElementById("err1").style.display="block";
-                    document.getElementById("com").style.borderColor="red";
-                    document.getElementById("err2").style.display="none";
-                    document.getElementById("punt").style.borderColor="#4f4f4f";
-               }else if(punt == ""){
-                    document.getElementById("err2").style.display="block";
-                    document.getElementById("punt").style.borderColor="red";
-                    document.getElementById("err1").style.display="none";
-                    document.getElementById("com").style.borderColor="#4f4f4f";
-               }
-          }else{
-               //Esto obtiene la fecha y hora actual del sistema.
-               let date = new Date();
-               userComment.description = com;
-               userComment.score = parseInt(punt);
-               userComment.user = localStorage.getItem("UserName");
-               //Debemos usar el slice para que quede en formato correcto la fecha
-               userComment.dateTime = date.getFullYear() + '-' + ('0' + (date.getMonth()+1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2) + ' ' +
-               ('0' + date.getHours()).slice(-2) + ":" + ('0' + date.getMinutes()).slice(-2) + ":" + ('0' + date.getSeconds()).slice(-2);
-               //Define el comentario en el localStorage para que siga apareciendo mas tarde
-               localStorage.setItem(`${userComment.product}`+"Comments", JSON.stringify(userComment));
-               location.reload();
+     let userComInput = document.getElementById("com");
+     let userPuntInput = document.getElementById("punt");
+     if( userComInput.value == ""  || userPuntInput.selectedIndex == 0){
+          if(( userComInput.value == "") && ( userPuntInput.selectedIndex == 0)){
+               switchClasses("d-block", "d-none", "err1");
+               switchClasses("d-block", "d-none", "err2");
+               document.getElementById("com").style.borderColor="red";
+               document.getElementById("punt").style.borderColor="red";
+          }else if(userComInput.value == ""){
+               switchClasses("d-block", "d-none", "err1");
+               switchClasses("d-none", "d-block", "err2");
+               document.getElementById("com").style.borderColor="red";
+               document.getElementById("punt").style.borderColor="#4f4f4f";
+          }else if(userPuntInput.selectedIndex == 0){
+               switchClasses("d-block", "d-none", "err2");
+               switchClasses("d-none", "d-block", "err1");
+               document.getElementById("punt").style.borderColor="red";
+               document.getElementById("com").style.borderColor="#4f4f4f";
           }
+     }else{
+          //Esto obtiene la fecha y hora actual del sistema.
+          let date = new Date();
+          userComment.description = userComInput.value;
+          userComment.score = parseInt(userPuntInput.selectedIndex);
+          userComment.user = localStorage.getItem("UserName");
+          //Debemos usar el slice para que quede en formato correcto la fecha
+          userComment.dateTime = date.getFullYear() + '-' + ('0' + (date.getMonth()+1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2) + ' ' +
+          ('0' + date.getHours()).slice(-2) + ":" + ('0' + date.getMinutes()).slice(-2) + ":" + ('0' + date.getSeconds()).slice(-2);
+          //Define el comentario en el localStorage para que siga apareciendo mas tarde
+          localStorage.setItem(`${userComment.product}`+"Comments", JSON.stringify(userComment));
+          location.reload();
+     }
 }
 
 function showRelatedProducts(){
@@ -228,7 +222,7 @@ function setProdID(id){
      location.reload();
 }
 
-document.addEventListener("DOMContentLoaded", function(e){
+document.addEventListener("DOMContentLoaded", function(){
      //Lo tuve que hacer asi porque no me copiaba el objeto response a los arreglos ya creados
      //(No se arregla con la anidación del getJSONData)
      getJSONData(PROD_URL).then(function (resObj) {
@@ -240,7 +234,6 @@ document.addEventListener("DOMContentLoaded", function(e){
                ImagesAnim(ProdInfo.images);
           }
           showRelatedProducts();
-          let cart = JSON.parse(localStorage.getItem("cartProducts"));
           document.getElementById("addToCart").addEventListener("click", function(){
                //Cuando se presiona el boton de agregar al carrito
                if(localStorage.getItem("cartProducts") != null){
@@ -251,8 +244,7 @@ document.addEventListener("DOMContentLoaded", function(e){
                     while(!flag && i<cart.length){
                          if(cart[i].id == ProdInfo.id){
                               //Si ya existe el elemento en el carrito
-                              document.getElementById("productInCart").classList.remove("d-none");
-                              document.getElementById("productInCart").classList.add("d-inline");
+                              switchClasses("d-inline", "d-none", "productInCart");
                               document.getElementById("addToCart").setAttribute("disabled", true);
                               flag = true;
                          }else{
@@ -289,36 +281,40 @@ document.addEventListener("DOMContentLoaded", function(e){
                }
                ShowProductComments(ProdComments);
                showUserCommOption();
-               //Agregamos un eventListener al botón de submit
-               document.getElementById("enviarCom").addEventListener("click", function(e){
+               document.getElementById("enviarCom").addEventListener("click", function(){
+                    //Agregamos un eventListener al botón de submit
+                    //Si ya hay un comentario echo por el usuario debo mostrar un modal diciendo si lo quiere cambiar. aqui solo manejo los botones del modal
                     if(localStorage.getItem(`${userComment.product}`+"Comments") == null){
-                         sendUserComment(ProdComments);
-                    }else if(confirm("Ya hiciste tu comentario! No se pueden hacer 2.\nQuieres editar tu comentario actual?")){
-                         //Editamos el comentario
-                         sendUserComment(ProdComments);
+                         sendUserComment();
                     }else{
-                    //Descartamos todo lo dado por el usuario
-                         document.getElementById("com").value = "";
-                         document.getElementById("punt").selectedIndex = 0;
-                    }
+                         document.getElementById("confirmarEdit").addEventListener("click",function(){
+                              //Agregamos el comentario de ser posible
+                              sendUserComment();
+                         })
+                         document.getElementById("cancelarEdit").addEventListener("click", function(){
+                              //Cancelamos el envió del comentario y limpiamos los inputs
+                              document.getElementById("com").value = "";
+                              document.getElementById("punt").selectedIndex = 0;
+                         })
+                    } 
                });
                //Comportamiento de eliminar un comentario
-               document.getElementById("eliminarCom").addEventListener("click",function(e){
-                    if(localStorage.getItem(`${userComment.product}`+"Comments") != null
-                    //confirmamos si el usuario quiere eliminar su opinion
-                    && confirm("Estas seguro que quieres eliminar tu comentario?")){
+               document.getElementById("eliminarCom").addEventListener("click",function(){
+                    if(localStorage.getItem(`${userComment.product}`+"Comments") != null){
                          //Eliminamos el comentario y recargamos la pagina
-                         localStorage.removeItem(`${userComment.product}`+"Comments");
-                         location.reload();
+                         document.getElementById("eliminarEdit").addEventListener("click", function(){
+                              localStorage.removeItem(`${userComment.product}`+"Comments");
+                              location.reload();
+                         })
                     }else if(localStorage.getItem(`${userComment.product}`+"Comments") == null){
-                    //Avisamos que no hay comentarios para eliminar y desactivamos el botón.
-                         document.getElementById("noCommentAlert").classList.remove("d-none");
-                         document.getElementById("noCommentAlert").classList.add("d-inline");
+                         //Avisamos que no hay comentarios para eliminar y desactivamos el botón.
+                         switchClasses("d-inline", "d-none", "noCommentAlert")
                          document.getElementById("eliminarCom").setAttribute("disabled", true);
                     }
                });
 
                document.getElementById("com").addEventListener("keyup", function() {
+                    //Este evento lo uso para el conteo de caracteres del input
                     let characterCount = this.value.length;
                     document.getElementById("current").innerHTML = characterCount;
                     if(characterCount === 200){

@@ -58,8 +58,7 @@ function showProducts(array){
   }
 }
 
-document.addEventListener("DOMContentLoaded", function (e) {
-
+document.addEventListener("DOMContentLoaded", function () {
   getJSONData(URL).then(function (resObj) {
     if (resObj.status === "ok") {
       prod = resObj.data;
@@ -71,8 +70,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
     }
   });
 
-  //Filtrado por relevancia-precio
   document.getElementById("asc").addEventListener("click", function(){
+    //Filtrado por precio ascendente
     ACTUAL_SORT_CRITERIA = "1-2";
     sortAndFilterProducts();
     document.getElementById("btnGroupDrop1").innerHTML = document.getElementById("asc").innerHTML;
@@ -80,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
   })
 
   document.getElementById("des").addEventListener("click", function(){
+    //Filtrado por precio descendente
     ACTUAL_SORT_CRITERIA = "2-1";
     sortAndFilterProducts();
     document.getElementById("btnGroupDrop1").innerHTML = document.getElementById("des").innerHTML;
@@ -87,13 +87,14 @@ document.addEventListener("DOMContentLoaded", function (e) {
   })
   
   document.getElementById("rel").addEventListener("click", function(){
+    //Filtrado por relevancia
     ACTUAL_SORT_CRITERIA = "Cant.";
     sortAndFilterProducts();
     document.getElementById("btnGroupDrop1").innerHTML = document.getElementById("rel").innerHTML;
     showProducts(orderedProd);
   })
-  //filtrado por max-min precio
   document.getElementById("filtrar").addEventListener("click", function(){
+    //filtrado por max-min precio
     minPrice = document.getElementById("desde").value;
     maxPrice = document.getElementById("hasta").value;
     //Verifica si pasamos un numero, un carácter o nada
@@ -111,8 +112,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
     showProducts(orderedProd);
   });
 
-  //Limpiar filtro de precios
   document.getElementById("limpiar").addEventListener("click", function(){
+    //Limpiar filtro de precios
     minPrice = undefined;
     maxPrice = undefined;
     document.getElementById("desde").value = "";
@@ -121,8 +122,8 @@ document.addEventListener("DOMContentLoaded", function (e) {
     showProducts(orderedProd);
   });
 
-  //barra de búsqueda
   document.getElementById("busqueda").addEventListener("input", function(){
+    //barra de búsqueda
     //Busca el valor del campo de búsqueda y lo lleva a mayúsculas
     search = document.getElementById("busqueda").value;
     search = search.toUpperCase();

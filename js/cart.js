@@ -99,14 +99,22 @@ const showProducts = obj => {
           for (let [index, product] of obj.articles.entries()) {
                if(index > 0 && product.id != 50924 || index == 0){
                     //Esta validacion es usada para saber si el usuario agrego al carrito el auto peugot 208
+                    let disabled;
+                    //Esta variables es usada para habilitar o no el boton para disminuir la cantidad de productos
+                    if(product.count==1){ disabled = "disabled"; }
+                    else { disabled = ""}
                     htmlContent += `
                     <div class="row h-25 pe-0">
                          <img src="${product.image}" alt="product image" class="col-md-4 col-sm-7" >
-                         <div class="col-sm-6 col-md-4 d-grid" style="height:fit-content">
-                              <span class="fw-bold" id="hola">${product.name}</span>
-                              <span>Cantidad: <input id="i${index}" onkeydown="return false" onInput="subtotal(${index})" style="width: 3rem" type="number" value="${product.count}" min="1"> </span>
-                              <a style="width: fit-content" onClick="deleteProd(${index})" href=#>Eliminar producto</a>
+                         <div class="col-sm-6 col-md-4" style="height:fit-content">
+                              <span class="fw-bold row m-0" id="hola">${product.name}</span>
+                              <span class="">Cantidad: <span id="i${index}" style="width: 3rem">${product.count}</span>
+                              <div class="btn-group btn-group-sm" role="group">
+                                   <button id="${index}button" type="button" onClick="subtotal(${index}, false)" class="btn btn-light" ${disabled}>-</button>
+                                   <button type="button" onClick="subtotal(${index}, true)" class="btn btn-light">+</button>
+                              </div></span>
                               <div id="quantityFeedback${index}" class="invalid-feedback">No puedes dejar la cantidad en un numero menor o igual a 0</div>
+                              <a class="row m-0" style="width: fit-content" onClick="deleteProd(${index})" href=#>Eliminar producto</a>
                          </div>
                          <div class="allPrice col pe-0 text-end">
                               <span class="unitPrice">${product.currency}${product.unitCost} - </span><strong id="cost-${index}">${product.currency}${(product.unitCost * product.count)}</strong>
@@ -127,11 +135,20 @@ const showProducts = obj => {
      }
 }
 
-function subtotal(index){
-//Actualiza el subtotal del producto donde cambia la cantidad y reimprime el arreglo
-     products.articles[index].count = document.getElementById(`i${index}`).value;
+function subtotal(index, sumo){
+     //Actualiza el subtotal del producto donde cambia la cantidad y reimprime el arreglo
+     //Pre: sumo debe ser true para sumar, false en caso contrario
+     if(sumo){
+          products.articles[index].count += 1;
+          document.getElementById(`${index}button`).disabled = false;
+     }else{
+          products.articles[index].count -= 1;
+          if(products.articles[index].count == 1){
+               document.getElementById(`${index}button`).disabled = true;
+          }
+     }
      let cartInLS = JSON.parse(localStorage.getItem("cartProducts"));
-     if(cartInLS[index-1] != undefined && products.articles[index].name == cartInLS[index-1].name){
+     if(cartInLS != null && cartInLS[index-1] != undefined && products.articles[index].name == cartInLS[index-1].name){
           cartInLS[index-1].count = products.articles[index].count;
      }else if(cartInLS == null || (cartInLS[index] != undefined && products.articles[index].name == cartInLS[index].name)){
           cartInLS[index].count = products.articles[index].count;

@@ -53,6 +53,15 @@ nav a {
   font-weight: bold;
 }
 
+@media(max-width: 768px){
+  .jumbotron{
+    background-size: contain;
+    height: 200px;
+    width: 100%;
+    background-color: #f8f9fa;
+  }
+}
+
 @media (min-width: 768px) {
   .jumbotron {
     padding-top: 6rem;

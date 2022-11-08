@@ -32,7 +32,7 @@
           <li class="nav-item">
             <a class="nav-link" href="sell.html">Vender</a>
           </li>
-          <li id="u_n" class="nav-item">
+          <li id="UserN" class="nav-item">
           </li>
         </ul>
       </div>
@@ -77,6 +77,42 @@
       </div>
     </div>
   </footer>
+
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Editar comentario</h5>
+        </div>
+        <div class="modal-body">
+          No puedes tener 2 comentarios en el mismo producto.<br>
+          ¿Quieres editar tu comentario?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger mt-3 ms-3 pt-3 pb-3" id="cancelarEdit" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary mt-3" id="confirmarEdit" data-bs-dismiss="modal">Confirmar edición</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="deleteCommModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteCommLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteComLabel">Eliminar comentario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Estas seguro de que quieres eliminar tu comentario?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger mt-3 ms-3 pt-3 pb-3" id="eliminarEdit" data-bs-dismiss="modal">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>

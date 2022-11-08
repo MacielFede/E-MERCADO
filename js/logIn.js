@@ -1,10 +1,11 @@
 //Manejamos las animaciones fuera del click para no sobrecargar la función
+//No puedo usar switchClasses() porque no tengo una forma directa de cambiar borderColor
 function emailAnimation(){
      //Agregamos las animaciones y colores del email
      document.getElementById("err1").style.display="block";
      document.getElementById("email").style.borderColor="red";
      document.getElementById("email").classList.toggle("shake");
-     document.getElementById("email").addEventListener("animationend", e => 
+     document.getElementById("email").addEventListener("animationend", () => 
           document.getElementById("email").classList.toggle("shake"));
 }
 function passwordAnimation(){
@@ -30,20 +31,16 @@ function submitLogIn(){
      let email = document.getElementById("email").value;
      let password = document.getElementById("passw").value;
 
-     if (email != "" &&  password != "" ){
-     //Usamos esto para ir al inicio permitiendo volver a la pagina de login y probarla a fondo
+     if (email != "" && email.includes("@") &&  password != "" ){
+          //Usamos esto para ir al inicio permitiendo volver a la pagina de login y probarla a fondo
           localStorage.setItem("UserName", email);
-          if(localStorage.getItem("imgSRC") == null){
-               localStorage.setItem("imgSRC", "img/img_perfil.png");
-          }
           location.href = "index.html";
      }else{
-          if(email == ""){
+          if(email == "" || !email.includes("@")){
                emailAnimation();
           }else{
                emailAnimOff();
           }
-
           if(password == ""){
                passwordAnimation();
           }else{
@@ -53,11 +50,11 @@ function submitLogIn(){
 }
 
 document.addEventListener("keypress", function(e){
-     if(event.key === "Enter"){
+     if(e.key === "Enter"){
           submitLogIn();
      }
 })
 
-document.getElementById("enter").addEventListener("click", function (a) {
+document.getElementById("enter").addEventListener("click", function () {
      submitLogIn();
 });
